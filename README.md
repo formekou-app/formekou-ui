@@ -1,5 +1,5 @@
 ```bash
-# To format code style: 
+# To format code style:
 npm run format
 
 # To check code's format style
