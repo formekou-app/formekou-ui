@@ -7,10 +7,10 @@
   @apply w-full py-3 px-5 ring-1 ring-gray-300 rounded-xl placeholder-gray-600 bg-transparent transition disabled:ring-gray-200 disabled:bg-gray-100 disabled:placeholder-gray-400 invalid:ring-red-400 focus:invalid:outline-none;
 }
 
-.base-btn{
-  @apply transition py-3 px-6 rounded-xl flex gap-4 justify-center
+.base-btn {
+  @apply transition py-3 px-6 rounded-xl flex gap-4 justify-center;
 }
 
-.main-btn{
-  @apply text-white bg-blue-900 hover:bg-sky-600 focus:bg-sky-600 active:bg-sky-800
+.main-btn {
+  @apply text-white bg-blue-900 hover:bg-sky-600 focus:bg-sky-600 active:bg-sky-800;
 }
