@@ -1,2 +1,2 @@
 export { Login } from "./login/Login.jsx";
-export { Profile } from "./login/Profile.jsx";
+export { Profile } from "./profile/Profile.jsx";

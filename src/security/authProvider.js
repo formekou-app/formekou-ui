@@ -14,3 +14,8 @@ export async function getWhoAmi(){
   })
     .then(response => response.data)
 }
+
+export async function postSignup(data){
+  return axios.post(`${API_URL}/signup`, data)
+    .then(response => response.data)
+}

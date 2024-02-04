@@ -8,7 +8,7 @@ export function Profile(){
       <div>
         logged as {JSON.stringify(authentification.user)}
       </div>
-      <button onClick={()=>authentification.logout()}>
+      <button className="main-btn m-5" onClick={()=>authentification.logout()}>
         Logout
       </button>
     </div>
