@@ -1,4 +1,4 @@
-import {GoogleAuthProvider} from "firebase/auth"
+import { GoogleAuthProvider } from "firebase/auth";
 import { GitHub as GitHubIcon } from "@mui/icons-material";
 import { ManualLoginForm } from "./ManualLoginForm";
 
@@ -14,11 +14,11 @@ export function Login() {
 
   const loginWithGoogle = async () => {
     await authentification.login(GoogleAuthProvider);
-  }
-  
-  const loginWithGithub = ()=>{
+  };
+
+  const loginWithGithub = () => {
     alert("Not supported yet");
-  }
+  };
 
   return (
     <main className="2xl:container h-screen m-auto">

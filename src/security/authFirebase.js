@@ -4,7 +4,7 @@ import {
   signOut,
   createUserWithEmailAndPassword,
 } from "firebase/auth";
-import {auth} from "../config/firebase";
+import { auth } from "../config/firebase";
 
 const AUTH_ID_TOKEN = "auth_id_token";
 const AUTH_EMAIL = "auth_email";
@@ -24,7 +24,7 @@ const getCachedAuth = () => ({
 
 const login = async (provider) => {
   if ("email" in provider) {
-    const {email, password} = provider;
+    const { email, password } = provider;
     return cacheCredential(
       await signInWithEmailAndPassword(auth, email, password)
     );
@@ -32,9 +32,9 @@ const login = async (provider) => {
   return cacheCredential(await signInWithPopup(auth, new provider()));
 };
 
-const signup = async (provider)=> {
+const signup = async (provider) => {
   if ("email" in provider) {
-    const {email, password} = provider;
+    const { email, password } = provider;
     return cacheCredential(
       await createUserWithEmailAndPassword(auth, email, password)
     );
@@ -42,7 +42,7 @@ const signup = async (provider)=> {
   return cacheCredential(await login(provider));
 };
 
-const logout = async ()=> {
+const logout = async () => {
   await signOut(auth);
   localStorage.removeItem(AUTH_ID_TOKEN);
   localStorage.removeItem(AUTH_EMAIL);
@@ -53,7 +53,7 @@ const authFirebase = {
   logout,
   signup,
   cacheCredential,
-  getCachedAuth
+  getCachedAuth,
 };
 
 export default authFirebase;
