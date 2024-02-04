@@ -1,14 +1,23 @@
+import { GoogleAuthProvider } from "firebase/auth";
 import { GitHub as GitHubIcon } from "@mui/icons-material";
-
 import { ManualLoginForm } from "./ManualLoginForm";
 
 import imageLogin from "../../assets/images/form.jpg";
 import googleIcon from "../../assets/images/google.svg";
 import formekouLogo from "../../assets/images/formekou.png";
 
+import { useAuth } from "../../security/hooks";
+
+//TODO: create useNotify() hooks and gen api client to call properly the user
 export function Login() {
-  const logGoogleUser = async () => {
-    console.log("will call google singin");
+  const authentification = useAuth();
+
+  const loginWithGoogle = async () => {
+    await authentification.login(GoogleAuthProvider);
+  };
+
+  const loginWithGithub = () => {
+    alert("Not supported yet");
   };
 
   return (
@@ -26,14 +35,14 @@ export function Login() {
           <div className="mt-5 flex gap-6 items-center">
             <button
               className="base-btn bg-blue-50 hover:bg-blue-100 focus:bg-blue-100 active:bg-blue-200"
-              onClick={logGoogleUser}
+              onClick={loginWithGoogle}
             >
               <img src={googleIcon} className="w-6 block" />
               <span className="text-blue-700"> with Google </span>
             </button>
             <button
               className="base-btn bg-gray-900 hover:bg-gray-800 active:bg-gray-600 focus:bg-gray-700"
-              onClick={logGoogleUser}
+              onClick={loginWithGithub}
             >
               <GitHubIcon className="w-5 text-white" />
               <span className="text-white"> with Github</span>
