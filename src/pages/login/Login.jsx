@@ -1,15 +1,20 @@
+import {GoogleAuthProvider} from "firebase/auth"
 import { GitHub as GitHubIcon } from "@mui/icons-material";
-
 import { ManualLoginForm } from "./ManualLoginForm";
 
 import imageLogin from "../../assets/images/form.jpg";
 import googleIcon from "../../assets/images/google.svg";
 import formekouLogo from "../../assets/images/formekou.png";
 
+import { useAuth } from "../../security/hooks";
+
+//TODO: create useNotify() hooks and gen api client to call properly the user
 export function Login() {
+  const authentification = useAuth();
+
   const logGoogleUser = async () => {
-    console.log("will call google singin");
-  };
+    await authentification.login(GoogleAuthProvider);
+  }
 
   return (
     <main className="2xl:container h-screen m-auto">
