@@ -1,6 +1,6 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useAuth } from "../../security/hooks";
-import { useState } from "react";
 import { postSignup } from "../../security/authProvider";
 
 export function ManualLoginForm() {
