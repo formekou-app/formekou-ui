@@ -14,3 +14,11 @@
 .main-btn {
   @apply text-white bg-blue-900 hover:bg-sky-600 focus:bg-sky-600 active:bg-sky-800;
 }
+
+.flex-container {
+  @apply lg:px-24 lg:py-24 md:py-20 md:px-44 px-4 py-24 items-center flex justify-center flex-col-reverse lg:flex-row md:gap-28 gap-16;
+}
+
+.container {
+  @apply xl:pt-24 w-full xl:w-1/2 relative pb-12 lg:pb-0;
+}
