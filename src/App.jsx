@@ -17,7 +17,7 @@ function App() {
               </Authentificate>
             }
           />
-          <Route path="/signup" element={<Signup />}/>
+          <Route path="/signup" element={<Signup />} />
           {/* TODO: Change not found design*/}
           <Route
             path="/*"
