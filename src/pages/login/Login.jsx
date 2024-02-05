@@ -1,5 +1,4 @@
 import { GoogleAuthProvider } from "firebase/auth";
-import { GitHub as GitHubIcon } from "@mui/icons-material";
 import { ManualLoginForm } from "./ManualLoginForm";
 
 import imageLogin from "../../assets/images/form.jpg";
@@ -14,10 +13,6 @@ export function Login() {
 
   const loginWithGoogle = async () => {
     await authentification.login(GoogleAuthProvider);
-  };
-
-  const loginWithGithub = () => {
-    alert("Not supported yet");
   };
 
   return (
@@ -39,13 +34,6 @@ export function Login() {
             >
               <img src={googleIcon} className="w-6 block" />
               <span className="text-blue-700"> with Google </span>
-            </button>
-            <button
-              className="base-btn bg-gray-900 hover:bg-gray-800 active:bg-gray-600 focus:bg-gray-700"
-              onClick={loginWithGithub}
-            >
-              <GitHubIcon className="w-5 text-white" />
-              <span className="text-white"> with Github</span>
             </button>
           </div>
           <div role="hidden" className="mt-7 border-t">
