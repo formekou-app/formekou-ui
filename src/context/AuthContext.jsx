@@ -2,6 +2,7 @@
 import { createContext, useEffect, useState } from "react";
 import { getWhoAmi } from "../security/authProvider";
 import authFirebase from "../security/authFirebase";
+import { LoadingPage } from "../pages/LoadingPage";
 
 export const AuthContext = createContext();
 
@@ -22,7 +23,7 @@ export function AuthProvider({ children }) {
   }, []);
 
   return isTestingWhoAmi ? (
-    <h2>Loading</h2>
+    <LoadingPage />
   ) : (
     <AuthContext.Provider value={{ user, setUser }}>
       {children}
