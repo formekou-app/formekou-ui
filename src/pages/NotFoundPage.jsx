@@ -17,9 +17,7 @@ export function NotFoundPage() {
             go.
           </p>
           <Link to="/">
-          <button className="other-btn">
-             Take me there! 
-          </button>
+            <button className="other-btn">Take me there!</button>
           </Link>
         </div>
         <img src={codeStatus} />
