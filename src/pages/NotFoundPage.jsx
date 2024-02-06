@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import codeStatus from "../assets/images/404-2.png";
 import group from "../assets/images/Group.png";
 
+//TODO:  refactor all button using material tailwind button
 export function NotFoundPage() {
   return (
     <div className="nf-container">
@@ -15,9 +16,11 @@ export function NotFoundPage() {
             Sorry about that! Please visit our homepage to get where you need to
             go.
           </p>
+          <Link to="/">
           <button className="other-btn">
-            <Link to="/"> Take me there! </Link>
+             Take me there! 
           </button>
+          </Link>
         </div>
         <img src={codeStatus} />
       </div>
