@@ -1,8 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Login, Profile, Signup } from "./pages";
+import { Login, Profile, Signup, NotFoundPage } from "./pages";
 import { AuthProvider } from "./context";
 import { Authentificate } from "./security/componens";
-import { NotFoundPage } from "./pages/NotFoundPage";
 
 function App() {
   return (
@@ -19,7 +18,7 @@ function App() {
             }
           />
           <Route path="/signup" element={<Signup />} />
-          {/* TODO: Change not found design*/}
+
           <Route path="/*" element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>
