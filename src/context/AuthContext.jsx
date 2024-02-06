@@ -2,10 +2,10 @@
 import { createContext, useEffect, useState } from "react";
 import { getWhoAmi } from "../security/authProvider";
 import authFirebase from "../security/authFirebase";
+import { LoadingPage } from "../pages";
 
 export const AuthContext = createContext();
 
-//TODO: creating a loading page and maybe use zustand
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [isTestingWhoAmi, setIsTestingWhoAmi] = useState(true);
@@ -22,7 +22,7 @@ export function AuthProvider({ children }) {
   }, []);
 
   return isTestingWhoAmi ? (
-    <h2>Loading</h2>
+    <LoadingPage />
   ) : (
     <AuthContext.Provider value={{ user, setUser }}>
       {children}

@@ -11,6 +11,26 @@
   @apply transition py-3 px-6 rounded-xl flex gap-4 justify-center;
 }
 
+.square-btn {
+  @apply sm:w-full lg:w-auto my-2 border rounded  py-4 px-8 text-center bg-indigo-600 text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-700 focus:ring-opacity-50;
+}
+
 .main-btn {
   @apply text-white bg-blue-900 hover:bg-sky-600 focus:bg-sky-600 active:bg-sky-800;
+}
+
+.nf-container {
+  @apply lg:px-24 lg:py-24 md:py-20 md:px-44 px-4 py-24 items-center flex justify-center flex-col-reverse lg:flex-row md:gap-28 gap-16;
+}
+
+.resp-container {
+  @apply xl:pt-24 w-full xl:w-1/2 relative pb-12 lg:pb-0;
+}
+
+.lp-background {
+  @apply fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50;
+}
+
+.lp-resp {
+  @apply text-center flex flex-col items-center;
 }

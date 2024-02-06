@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Login, Profile, Signup } from "./pages";
+import { Login, Profile, Signup, NotFoundPage } from "./pages";
 import { AuthProvider } from "./context";
 import { Authentificate } from "./security/componens";
 
@@ -18,11 +18,8 @@ function App() {
             }
           />
           <Route path="/signup" element={<Signup />} />
-          {/* TODO: Change not found design*/}
-          <Route
-            path="/*"
-            element={<h2 className="text-center text-xl mt-5">Not Found</h2>}
-          />
+
+          <Route path="/*" element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
