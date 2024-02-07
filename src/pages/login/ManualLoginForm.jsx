@@ -8,7 +8,7 @@ import { postSignup } from "../../security/authProvider";
 
 export function ManualLoginForm() {
   const [isCreate, setIsCreate] = useState(false);
-  const [isLoading, setIsLoading]= useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const { register, handleSubmit } = useForm();
   const authentification = useAuth();
 
@@ -27,11 +27,11 @@ export function ManualLoginForm() {
     } catch (error) {
       alert("Signup failed");
       console.log(error);
-    }finally{
+    } finally {
       setIsLoading(false);
     }
   };
-  
+
   return (
     <form
       action="submit"
@@ -73,9 +73,13 @@ export function ManualLoginForm() {
           Forgot password
         </Button>
       )}
-      <Button loading={isLoading} type="submit" className="bg-main hover:bg-blue-600 w-full">
+      <Button
+        loading={isLoading}
+        type="submit"
+        className="bg-main hover:bg-blue-600 w-full"
+      >
         {isCreate ? "Create Account" : "Login"}
-      </Button >
+      </Button>
       <Button
         variant="text"
         size="sm"

@@ -19,7 +19,7 @@ export function NotFoundPage() {
             Sorry about that! Please visit our homepage to get where you need to
             go.
           </p>
-          <Button onClick={()=>navigate("/")} className="bg-main">
+          <Button onClick={() => navigate("/")} className="bg-main">
             Take me there!
           </Button>
         </div>

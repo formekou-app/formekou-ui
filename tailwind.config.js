@@ -5,11 +5,11 @@ export default withMT({
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
-      colors:{
+      colors: {
         "main": "#09389B",
         "bgray": "#666360",
         "main-black": "#3b3a39",
-      }
+      },
     },
   },
   plugins: [],
