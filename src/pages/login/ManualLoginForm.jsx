@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { Input } from "@material-tailwind/react";
+import { Email, Lock, Person } from "@mui/icons-material";
+
 import { useAuth } from "../../security/hooks";
 import { postSignup } from "../../security/authProvider";
+import { Link } from "react-router-dom";
 
 export function ManualLoginForm() {
   const [isCreate, setIsCreate] = useState(false);
@@ -30,43 +34,47 @@ export function ManualLoginForm() {
       className="space-y-6 py-6"
       onSubmit={handleSubmit(loginManually)}
     >
-      <input
+      <Input
         type="email"
-        placeholder="Email"
-        className="base-input"
+        name="Email"
+        label="Email"
+        size="lg"
+        icon={<Email />}
         {...register("email")}
       />
-      <input
+      <Input
         type="password"
-        placeholder="Password"
-        className="base-input"
+        label="Password"
+        size="lg"
+        icon={<Lock />}
         {...register("password")}
       />
       {isCreate ? (
-        <input
+        <Input
+          icon={<Person />}
           type="text"
-          placeholder="LastName"
-          className="base-input"
+          size="lg"
+          label="Lastname"
           {...register("lastName")}
         />
       ) : (
-        <a
-          href="#"
+        <Link
+          to={"#"}
           className="text-end block text-sm tracking-wide text-blue-800"
         >
           Forgot password ?
-        </a>
+        </Link>
       )}
       <button className="base-btn main-btn w-full">
         {isCreate ? "Create Account" : "Login"}
       </button>
-      <a
+      <Link
         href="#"
         className="block text-sm tracking-wide text-blue-800"
         onClick={() => setIsCreate((prev) => !prev)}
       >
         {isCreate ? "Already have an account" : "Create new Account"}
-      </a>
+      </Link>
     </form>
   );
 }
