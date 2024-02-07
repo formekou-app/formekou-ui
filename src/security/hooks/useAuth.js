@@ -1,8 +1,9 @@
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { AuthContext } from "../../context";
 import authFirebase from "../authFirebase";
 import { getWhoAmi } from "../authProvider";
-import { useNavigate } from "react-router-dom";
 
 export function useAuth() {
   const { user, setUser } = useContext(AuthContext);
