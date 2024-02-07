@@ -1,21 +1,23 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Input } from "@material-tailwind/react";
+import { Button, Input } from "@material-tailwind/react";
 import { Email, Lock, Person } from "@mui/icons-material";
 
 import { useAuth } from "../../security/hooks";
 import { postSignup } from "../../security/authProvider";
-import { Link } from "react-router-dom";
 
 export function ManualLoginForm() {
   const [isCreate, setIsCreate] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const { register, handleSubmit } = useForm();
   const authentification = useAuth();
 
   const loginManually = async ({ ...data }) => {
+    setIsLoading(true);
     if (!isCreate) {
       delete data.lastName;
       await authentification.login(data);
+      setIsLoading(false);
       return;
     }
 
@@ -25,6 +27,8 @@ export function ManualLoginForm() {
     } catch (error) {
       alert("Signup failed");
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -35,6 +39,7 @@ export function ManualLoginForm() {
       onSubmit={handleSubmit(loginManually)}
     >
       <Input
+        required
         type="email"
         name="Email"
         label="Email"
@@ -43,6 +48,7 @@ export function ManualLoginForm() {
         {...register("email")}
       />
       <Input
+        required
         type="password"
         label="Password"
         size="lg"
@@ -51,6 +57,7 @@ export function ManualLoginForm() {
       />
       {isCreate ? (
         <Input
+          required
           icon={<Person />}
           type="text"
           size="lg"
@@ -58,23 +65,29 @@ export function ManualLoginForm() {
           {...register("lastName")}
         />
       ) : (
-        <Link
-          to={"#"}
-          className="text-end block text-sm tracking-wide text-blue-800"
+        <Button
+          variant="text"
+          size="sm"
+          className="block ms-auto font-normal text-main"
         >
-          Forgot password ?
-        </Link>
+          Forgot password
+        </Button>
       )}
-      <button className="base-btn main-btn w-full">
+      <Button
+        loading={isLoading}
+        type="submit"
+        className="bg-main hover:bg-blue-600 w-full"
+      >
         {isCreate ? "Create Account" : "Login"}
-      </button>
-      <Link
-        href="#"
-        className="block text-sm tracking-wide text-blue-800"
+      </Button>
+      <Button
+        variant="text"
+        size="sm"
+        className="block font-normal text-main"
         onClick={() => setIsCreate((prev) => !prev)}
       >
         {isCreate ? "Already have an account" : "Create new Account"}
-      </Link>
+      </Button>
     </form>
   );
 }

@@ -1,3 +1,4 @@
+import { Button } from "@material-tailwind/react";
 import { useAuth } from "../../security/hooks";
 
 export function Profile() {
@@ -6,12 +7,13 @@ export function Profile() {
   return (
     <div>
       <div>logged as {JSON.stringify(authentification.user)}</div>
-      <button
-        className="main-btn m-5"
+      <Button
+        color="blue"
+        className="bg-main m-5"
         onClick={() => authentification.logout()}
       >
         Logout
-      </button>
+      </Button>
     </div>
   );
 }
