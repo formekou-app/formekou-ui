@@ -18,9 +18,8 @@ function App() {
               </Authentificate>
             }
           />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/create" element={<FormBuilder />} />
           <Route path="/*" element={<NotFoundPage />} />
+          <Route path="/create" element={<FormBuilder />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
