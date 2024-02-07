@@ -1,6 +1,28 @@
 import { Fragment } from "react";
-import { TextField, Box, Paper, FormGroup, FormControlLabel, Switch, Divider, IconButton, Tooltip, Grid, MenuItem, Select, InputLabel, FormControl } from "@mui/material";
-import { DragIndicator, DeleteOutlineOutlined, FileCopy } from "@mui/icons-material";
+
+import PropTypes from "prop-types";
+
+import {
+  TextField,
+  Box,
+  Paper,
+  FormGroup,
+  FormControlLabel,
+  Switch,
+  Divider,
+  IconButton,
+  Tooltip,
+  Grid,
+  MenuItem,
+  Select,
+  InputLabel,
+  FormControl,
+} from "@mui/material";
+import {
+  DragIndicator,
+  DeleteOutlineOutlined,
+  FileCopy,
+} from "@mui/icons-material";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import DatePicker from "@mui/lab/DatePicker";
@@ -15,13 +37,15 @@ export function DateInput({
   handleRequired,
   handleElType,
   handleDate,
-  duplicateElement
+  duplicateElement,
 }) {
   return (
     <Fragment>
       <Paper elevation={1}>
         <Box sx={{ textAlign: "center" }}>
-          <DragIndicator sx={{ transform: "rotate(-90deg)", cursor: "all-scroll" }} />
+          <DragIndicator
+            sx={{ transform: "rotate(-90deg)", cursor: "all-scroll" }}
+          />
         </Box>
         <Box sx={{ p: 3 }}>
           <Grid container spacing={1}>
@@ -39,7 +63,9 @@ export function DateInput({
                 <DatePicker
                   label="Select Date"
                   value={item?.date}
-                  onChange={(newDate) => {handleDate(item.id,newDate);}}
+                  onChange={(newDate) => {
+                    handleDate(item.id, newDate);
+                  }}
                   renderInput={(params) => <TextField fullWidth {...params} />}
                 />
               </LocalizationProvider>
@@ -71,7 +97,7 @@ export function DateInput({
             <IconButton
               aria-label="delete-element"
               onClick={() => deleteEl(item.id)}
-              sx={{ ml: 2 ,color: "#010C80"}}
+              sx={{ ml: 2, color: "#010C80" }}
             >
               <DeleteOutlineOutlined sx={{ color: "#010C80" }} />
             </IconButton>
@@ -79,8 +105,8 @@ export function DateInput({
           <Tooltip title="Duplicate Element" aria-label="duplicate-element">
             <IconButton
               aria-label="duplicate-element"
-              onClick={() => duplicateElement(item.id,item.type)}
-              sx={{ ml: 2 ,color: "#010C80"}}
+              onClick={() => duplicateElement(item.id, item.type)}
+              sx={{ ml: 2, color: "#010C80" }}
             >
               <FileCopy sx={{ color: "#010C80" }} />
             </IconButton>
@@ -96,10 +122,26 @@ export function DateInput({
               />
             }
             label="Required"
-            sx={{ ml: 2 ,color: "#010C80"}}
+            sx={{ ml: 2, color: "#010C80" }}
           />
         </FormGroup>
       </Paper>
     </Fragment>
   );
 }
+
+DateInput.propTypes = {
+  item: PropTypes.shape({
+    value: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    required: PropTypes.bool.isRequired,
+    date: PropTypes.instanceOf(Date),
+    type: PropTypes.string.isRequired,
+  }).isRequired,
+  handleValue: PropTypes.func.isRequired,
+  deleteEl: PropTypes.func.isRequired,
+  handleRequired: PropTypes.func.isRequired,
+  handleElType: PropTypes.func.isRequired,
+  handleDate: PropTypes.func.isRequired,
+  duplicateElement: PropTypes.func.isRequired,
+};

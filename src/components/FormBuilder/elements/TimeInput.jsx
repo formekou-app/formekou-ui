@@ -1,4 +1,7 @@
 import { Fragment } from "react";
+
+import PropTypes from "prop-types";
+
 import {
   TextField,
   Box,
@@ -124,3 +127,19 @@ export function TimeInput({
     </Fragment>
   );
 }
+
+TimeInput.propTypes = {
+  item: PropTypes.shape({
+    value: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    required: PropTypes.bool.isRequired,
+    type: PropTypes.string.isRequired,
+    time: PropTypes.instanceOf(Date).isRequired,
+  }).isRequired,
+  handleValue: PropTypes.func.isRequired,
+  deleteEl: PropTypes.func.isRequired,
+  handleRequired: PropTypes.func.isRequired,
+  handleElType: PropTypes.func.isRequired,
+  handleTime: PropTypes.func.isRequired,
+  duplicateElement: PropTypes.func.isRequired,
+};

@@ -1,4 +1,7 @@
-import { useState, Fragment } from "react";
+import { Fragment } from "react";
+
+import PropTypes from "prop-types";
+
 import {
   TextField,
   Box,
@@ -118,3 +121,17 @@ export function TextFieldInput({
     </Fragment>
   );
 }
+
+TextFieldInput.propTypes = {
+  item: PropTypes.shape({
+    value: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    required: PropTypes.bool.isRequired,
+    type: PropTypes.string.isRequired,
+  }).isRequired,
+  handleValue: PropTypes.func.isRequired,
+  deleteEl: PropTypes.func.isRequired,
+  handleRequired: PropTypes.func.isRequired,
+  handleElType: PropTypes.func.isRequired,
+  duplicateElement: PropTypes.func.isRequired,
+};

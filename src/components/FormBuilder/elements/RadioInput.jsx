@@ -1,8 +1,30 @@
 import { Fragment } from "react";
 
+import PropTypes from "prop-types";
+
 import uuid from "react-uuid";
-import { TextField, Box, Paper, FormGroup, FormControlLabel, Switch, Divider, IconButton, Tooltip, Grid, MenuItem, Select, InputLabel, FormControl, Button } from "@mui/material";
-import { DragIndicator, DeleteOutlineOutlined, FileCopy } from "@mui/icons-material";
+import {
+  TextField,
+  Box,
+  Paper,
+  FormGroup,
+  FormControlLabel,
+  Switch,
+  Divider,
+  IconButton,
+  Tooltip,
+  Grid,
+  MenuItem,
+  Select,
+  InputLabel,
+  FormControl,
+  Button,
+} from "@mui/material";
+import {
+  DragIndicator,
+  DeleteOutlineOutlined,
+  FileCopy,
+} from "@mui/icons-material";
 
 // Form Elements
 import { formEl } from "../constants";
@@ -16,7 +38,7 @@ export function RadioInput({
   addOption,
   handleOptionValues,
   deleteOption,
-  duplicateElement
+  duplicateElement,
 }) {
   // Create new option
   const createNewOption = (id) => {
@@ -31,7 +53,9 @@ export function RadioInput({
     <Fragment>
       <Paper elevation={1}>
         <Box sx={{ textAlign: "center" }}>
-          <DragIndicator sx={{ transform: "rotate(-90deg)", cursor: "all-scroll" }} />
+          <DragIndicator
+            sx={{ transform: "rotate(-90deg)", cursor: "all-scroll" }}
+          />
         </Box>
         <Box sx={{ p: 3 }}>
           <Grid container spacing={1}>
@@ -48,20 +72,22 @@ export function RadioInput({
               {item.options &&
                 item.options.length > 0 &&
                 item.options.map((opt, key) => (
-                  <Box key={opt.id} sx={{ display: 'flex' }}>
+                  <Box key={opt.id} sx={{ display: "flex" }}>
                     <TextField
                       variant="outlined"
                       fullWidth
                       placeholder={`Radio Option ${key + 1}`}
                       defaultValue={opt.value}
-                      onBlur={(e) => handleOptionValues(item.id, opt.id, e.target.value)}
+                      onBlur={(e) =>
+                        handleOptionValues(item.id, opt.id, e.target.value)
+                      }
                       sx={{ mb: 1 }}
                     />
                     <Tooltip title="Delete Option" aria-label="delete-option">
                       <IconButton
                         aria-label="delete-option"
                         onClick={() => deleteOption(item.id, opt.id)}
-                        sx={{ ml: 2 ,color: "#010C80"}}
+                        sx={{ ml: 2, color: "#010C80" }}
                       >
                         <DeleteOutlineOutlined sx={{ color: "#010C80" }} />
                       </IconButton>
@@ -99,7 +125,7 @@ export function RadioInput({
             <IconButton
               aria-label="delete-element"
               onClick={() => deleteEl(item.id)}
-              sx={{ ml: 2 ,color: "#010C80"}}
+              sx={{ ml: 2, color: "#010C80" }}
             >
               <DeleteOutlineOutlined sx={{ color: "#010C80" }} />
             </IconButton>
@@ -108,7 +134,7 @@ export function RadioInput({
             <IconButton
               aria-label="duplicate-element"
               onClick={() => duplicateElement(item.id, item.type)}
-              sx={{ ml: 2 ,color: "#010C80" }}
+              sx={{ ml: 2, color: "#010C80" }}
             >
               <FileCopy sx={{ color: "#010C80" }} />
             </IconButton>
@@ -124,10 +150,32 @@ export function RadioInput({
               />
             }
             label="Required"
-            sx={{ ml: 2 ,color: "#010C80"}}
+            sx={{ ml: 2, color: "#010C80" }}
           />
         </FormGroup>
       </Paper>
     </Fragment>
   );
 }
+
+RadioInput.propTypes = {
+  item: PropTypes.shape({
+    value: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    required: PropTypes.bool.isRequired,
+    type: PropTypes.string.isRequired, // Add this line for item type validation
+    options: PropTypes.arrayOf(
+      PropTypes.shape({
+        value: PropTypes.string.isRequired,
+      })
+    ).isRequired,
+  }).isRequired,
+  handleValue: PropTypes.func.isRequired,
+  deleteEl: PropTypes.func.isRequired,
+  handleRequired: PropTypes.func.isRequired,
+  handleElType: PropTypes.func.isRequired,
+  addOption: PropTypes.func.isRequired,
+  handleOptionValues: PropTypes.func.isRequired,
+  deleteOption: PropTypes.func.isRequired,
+  duplicateElement: PropTypes.func.isRequired,
+};

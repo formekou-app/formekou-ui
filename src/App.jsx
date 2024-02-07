@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Login, Profile, Signup, NotFoundPage } from "./pages";
 import { AuthProvider } from "./context";
 import { Authentificate } from "./security/componens";
+import { FormBuilder } from "./components/FormBuilder";
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
             }
           />
           <Route path="/signup" element={<Signup />} />
-
+          <Route path="/create" element={<FormBuilder />} />
           <Route path="/*" element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>
