@@ -4,20 +4,12 @@
 @tailwind utilities;
 
 @layer components {
-  .base-input {
-    @apply w-full py-3 px-5 ring-1 ring-gray-300 rounded-xl placeholder-gray-600 bg-transparent transition disabled:ring-gray-200 disabled:bg-gray-100 disabled:placeholder-gray-400 invalid:ring-red-400 focus:invalid:outline-none;
-  }
-
   .base-btn {
     @apply transition py-3 px-6 rounded-xl flex gap-4 justify-center;
   }
 
   .square-btn {
     @apply sm:w-full lg:w-auto my-2 border rounded  py-4 px-8 text-center bg-indigo-600 text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-700 focus:ring-opacity-50;
-  }
-
-  .main-btn {
-    @apply text-white bg-blue-900 hover:bg-blue-600 focus:bg-blue-600 active:bg-blue-800;
   }
 
   .nf-container {
