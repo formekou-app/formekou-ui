@@ -4,14 +4,6 @@
 @tailwind utilities;
 
 @layer components {
-  .base-btn {
-    @apply transition py-3 px-6 rounded-xl flex gap-4 justify-center;
-  }
-
-  .square-btn {
-    @apply sm:w-full lg:w-auto my-2 border rounded  py-4 px-8 text-center bg-indigo-600 text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-700 focus:ring-opacity-50;
-  }
-
   .nf-container {
     @apply lg:px-24 lg:py-24 md:py-20 md:px-44 px-4 py-24 items-center flex justify-center flex-col-reverse lg:flex-row md:gap-28 gap-16;
   }

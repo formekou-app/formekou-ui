@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Login, Profile, Signup, NotFoundPage } from "./pages";
+import { Login, Profile, NotFoundPage } from "./pages";
 import { AuthProvider } from "./context";
 import { Authentificate } from "./security/componens";
 
@@ -17,8 +17,6 @@ function App() {
               </Authentificate>
             }
           />
-          <Route path="/signup" element={<Signup />} />
-
           <Route path="/*" element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>

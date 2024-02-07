@@ -10,7 +10,6 @@ export function ManualLoginForm() {
   const [isCreate, setIsCreate] = useState(false);
   const [isLoading, setIsLoading]= useState(false);
   const { register, handleSubmit } = useForm();
-
   const authentification = useAuth();
 
   const loginManually = async ({ ...data }) => {
@@ -74,7 +73,7 @@ export function ManualLoginForm() {
           Forgot password
         </Button>
       )}
-      <Button loading={isLoading} type="submit" className="bg-blue-800 w-full">
+      <Button loading={isLoading} type="submit" className="bg-main hover:bg-blue-600 w-full">
         {isCreate ? "Create Account" : "Login"}
       </Button >
       <Button
