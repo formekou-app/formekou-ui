@@ -1,0 +1,16 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+#page {
+  background-image: url("../images/bg-principal.png");
+}
+
+.element {
+  display: flex;
+  align-items: center;
+}
+
+.font-montserrat {
+  font-family: 'Montserrat';
+}
