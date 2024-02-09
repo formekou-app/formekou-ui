@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: ["preprod", prod"]
+    branches: ["preprod", "prod"]
   pull_request:
     branches: ["preprod", "prod"]
 
