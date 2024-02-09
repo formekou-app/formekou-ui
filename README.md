@@ -1,9 +1,11 @@
 # Formekou
 
-### preprod: 
+### preprod
+
 [![Netlify Status](https://api.netlify.com/api/v1/badges/96136211-8905-4c6c-abaf-fb14952713b8/deploy-status?branch=preprod)](https://app.netlify.com/sites/formekou/deploys)
 
-### prod: 
+### prod
+
 [![Netlify Status](https://api.netlify.com/api/v1/badges/96136211-8905-4c6c-abaf-fb14952713b8/deploy-status)](https://app.netlify.com/sites/formekou/deploys)
 
 # Scripts
