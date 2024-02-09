@@ -1,8 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Login, Profile, NotFoundPage } from "./pages";
+import { Login, Profile, NotFoundPage, EditForm } from "./pages";
 import { AuthProvider } from "./context";
 import { Authentificate } from "./security/componens";
-import { Form } from "./components/FormBuilder";
 
 function App() {
   return (
@@ -19,7 +18,7 @@ function App() {
             }
           />
           <Route path="/*" element={<NotFoundPage />} />
-          <Route path="/create" element={<Form />} />
+          <Route path="/create" element={<EditForm />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

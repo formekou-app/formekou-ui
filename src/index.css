@@ -19,4 +19,31 @@
   .lp-resp {
     @apply text-center flex flex-col items-center;
   }
+  .n-container {
+    @apply relative flex flex-col justify-start items-center px-4 sm:w-full md:w-3/4 lg:w-2/3 xl:w-1/2 mx-auto;
+  }
+
+  .container-inner {
+    @apply flex flex-col px-4 bg-white rounded-md justify-center items-start w-full shadow-sm border-indigo-800 border-t-8 space-y-2 md:h-auto;
+  }
+  .custom-input {
+    @apply text-3xl font-semibold text-black outline-none border-none bg-transparent;
+  }
+  .custom-label {
+    @apply text-black capitalize outline-none border-none bg-transparent;
+  }
+
+  .custom-container {
+    @apply relative flex flex-col w-full space-y-4;
+  }
+
+  .custom-flex-container {
+    @apply flex flex-col w-full;
+  }
+  .custom-flex {
+    @apply flex justify-between items-center space-y-2;
+  }
+  .custom-text {
+    @apply block text-sm font-medium text-black capitalize w-full sm:w-1/2;
+  }
 }

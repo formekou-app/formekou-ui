@@ -1,9 +1,11 @@
 import { useState } from "react";
 
+import { Button, Input } from "@material-tailwind/react";
+
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 import { DeleteOutlineOutlined, FileCopy } from "@mui/icons-material";
 
-export function Form() {
+export function EditForm() {
   const [formContent, setFormContent] = useState([
     {
       id: 0,
@@ -86,36 +88,33 @@ export function Form() {
   };
 
   return (
-    <div className="relative flex flex-col justify-start  items-center px-4 sm:w-full md:w-3/4 lg:w-2/3 xl:w-1/2 mx-auto">
-      <div className="flex flex-col px-4 bg-white rounded-md justify-center item-start w-full shadow-sm border-indigo-800 border-t-8 space-y-2 md:h-auto">
+    <div className="n-container">
+      <div className="container-inner">
         <input
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className="text-3xl font-semibold text-black outline-none border-none bg-transparent"
+          className="custom-input"
         />
         <textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          className="text-black capitalize outline-none border-none bg-transparent"
+          className="custom-label"
         />
       </div>
 
-      <div className="relative flex flex-col w-full space-y-4">
+      <div className="custom-container">
         {formContent.map((field) => {
           return (
             <div
               key={field.id}
               className="rounded-md bg-white flex w-full shadow-md px-4 form-field-container"
             >
-              <div className="flex flex-col w-full">
-                <div className="flex justify-between items-center space-y-2">
-                  <div
-                    key={field.name}
-                    className="block text-sm font-medium text-black capitalize w-full sm:w-1/2"
-                  >
+              <div className="custom-flex-container">
+                <div className="custom-flex">
+                  <div key={field.name}>
                     {onEdit && editedField === field.name ? (
-                      <input
+                      <Input
                         type="text"
                         value={field.label}
                         onChange={(e) => editField(field.name, e.target.value)}
@@ -123,7 +122,6 @@ export function Form() {
                           setOnEdit(false);
                           setEditedField("");
                         }}
-                        className="border border-gray-300 rounded-md shadow-sm px-3 py-2 focus:outline-none focus:border-blue-500 w-full"
                       />
                     ) : (
                       <label
@@ -182,19 +180,19 @@ export function Form() {
                           placeholder="Add an option"
                           className="flex-1 text-black"
                         />
-                        <button
-                          className="bg-indigo-700 block hover:bg-indigo-900 text-white px-4"
+                        <Button
+                          className="bg-main"
                           onClick={() => addFieldOption(field.name, textField)}
                         >
                           Add
-                        </button>
+                        </Button>
                       </div>
                     </div>
                   )}
                 </div>
                 <div className="flex items-center space-x-2 mt-2">
                   <button
-                    className="text-blue-500 hover:text-indigo-500"
+                    className="text-indigo-500"
                     onClick={() => duplicateField(field.id)}
                   >
                     <FileCopy />
@@ -206,7 +204,7 @@ export function Form() {
                     onChange={() => handleRequired(field.id)}
                   />
                   <button
-                    className="text-blue-500 hover:text-indigo-500"
+                    className="text-indigo-500"
                     onClick={() => deleteField(field.id)}
                   >
                     <DeleteOutlineOutlined />
@@ -216,7 +214,7 @@ export function Form() {
             </div>
           );
         })}
-        <div className="sticky top-30 right-0 -mt-8 mr-4 flex flex-col items-center bg-white p-2 rounded-md shadow-md md:mt-4 md:mr-2 lg:mr-8 lg:mt-2">
+        <div className="sticky top-30 flex flex-col items-center bg-white mx-auto">
           <button onClick={addQuestion}>
             <AddCircleOutlineOutlinedIcon className="w-8 h-8 text-gray-400 hover:text-indigo-500" />
           </button>
