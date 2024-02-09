@@ -3,7 +3,6 @@ import { Login, Profile, NotFoundPage, EditForm } from "./pages";
 import { AuthProvider } from "./context";
 import { Authentificate } from "./security/componens";
 
-
 function App() {
   return (
     <AuthProvider>
