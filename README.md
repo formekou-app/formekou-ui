@@ -9,7 +9,7 @@
 - [https:://formekou.netlify.app](https:://formekou.netlify.app)
 - [https:://formekou.vercel.app](https:://formekou.vercel.app)
 
-# Scripts
+# Scripts to format and check code
 
 ```bash
 # To format code style:
