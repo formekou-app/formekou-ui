@@ -17,16 +17,10 @@ export function useAuth() {
   };
 
   const login = async (provider) => {
-    try {
-      await authFirebase.login(provider);
-      const userConnected = await getWhoAmi();
-      setUser(userConnected);
-      navigate("/profile");
-    } catch (error) {
-      //TODO: show notification properly
-      alert("Connexion failed");
-      console.log(error);
-    }
+    await authFirebase.login(provider);
+    const userConnected = await getWhoAmi();
+    setUser(userConnected);
+    navigate("/profile");
   };
 
   return { user, setUser, isConnected, logout, login };

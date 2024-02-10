@@ -1,18 +1,24 @@
 import { GoogleAuthProvider } from "firebase/auth";
 import { ManualLoginForm } from "./ManualLoginForm";
+import { Alert } from "../../components";
+
+import { useNotify } from "../../hooks";
+import { useAuth } from "../../security/hooks";
 
 import imageLogin from "../../assets/images/form.jpg";
 import googleIcon from "../../assets/images/google.svg";
 import formekouLogo from "../../assets/images/formekou.png";
 
-import { useAuth } from "../../security/hooks";
-
-//TODO: create useNotify() hooks and gen api client to call properly the user
 export function Login() {
   const authentification = useAuth();
+  const [notify, notifyConfig] = useNotify();
 
   const loginWithGoogle = async () => {
-    await authentification.login(GoogleAuthProvider);
+    try {
+      await authentification.login(GoogleAuthProvider);
+    } catch (error) {
+      notify("Oops, An error occured, please try again !!", { color: "red" });
+    }
   };
 
   return (
@@ -42,6 +48,7 @@ export function Login() {
           <ManualLoginForm />
         </div>
       </div>
+      <Alert notifyConfig={notifyConfig} />
     </main>
   );
 }
