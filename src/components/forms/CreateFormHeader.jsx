@@ -8,7 +8,7 @@ export function CreateFormHeader() {
   const updateConfigByName = ({ target }) => {
     const { name, value } = target;
     updateConfig(name, value);
-  }
+  };
 
   return (
     <div
@@ -40,7 +40,7 @@ export function CreateFormHeader() {
         <Switch
           label="Private"
           value={config.isPrivate}
-          onChange={(value)=>updateConfig("isPrivate", value)}
+          onChange={({ target }) => updateConfig("isPrivate", target.value)}
         />
         <Input
           type="color"
@@ -50,18 +50,10 @@ export function CreateFormHeader() {
           onChange={updateConfigByName}
         />
         <div className="flex items-end mb-5 gap-5 w-full">
-          <Input
-            label="Open"
-            name="open"
-            type="datetime-local"
-          />
-          <Input
-            label="Close"
-            type="datetime-local"
-            name="close"
-          />
+          <Input label="Open" name="open" type="datetime-local" />
+          <Input label="Close" type="datetime-local" name="close" />
         </div>
       </CollapseConfig>
     </div>
-  )
+  );
 }

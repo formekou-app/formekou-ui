@@ -1,26 +1,34 @@
 import { useContext } from "react";
 import { CREATE_FORM_CONTEXT } from "../context/FormCreateContext";
 
-export function useCreateForm(){
+export function useCreateForm() {
   const {
-    addQuestion, 
-    removeQuestion, 
-    duplicateQuestion, 
+    addQuestion,
+    deleteQuestion,
+    duplicateQuestion,
     getQuestion,
     updateQuestion,
     updateConfig,
+    addQuestionOption,
+    updateQuestionOption,
+    deleteQuestionOption,
     config,
-    questions
+    questions,
+    createValue,
   } = useContext(CREATE_FORM_CONTEXT);
 
   return {
-    addQuestion, 
-    removeQuestion, 
-    duplicateQuestion, 
+    addQuestion,
+    deleteQuestion,
+    duplicateQuestion,
     getQuestion,
     updateQuestion,
     updateConfig,
+    addQuestionOption,
+    updateQuestionOption,
+    deleteQuestionOption,
     config,
-    questions
+    questions,
+    createValue,
   };
 }

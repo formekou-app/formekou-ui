@@ -1,26 +1,42 @@
-import { Button } from "@mui/material";
-import { useCreateForm } from "../../hooks/useCreateForm"
+import { Button } from "@material-tailwind/react";
+import { v4 as uuid } from "uuid";
+import { useCreateForm } from "../../hooks/useCreateForm";
 import { Question } from "./Question";
 
 export function CreateFormBody() {
-  const { questions } = useCreateForm();
+  const { questions, addQuestion, createValue } = useCreateForm();
+
+  const saveForm = () => {
+    console.log(createValue);
+  };
+
+  const createNewQuestion = () => {
+    addQuestion({
+      id: uuid(),
+      label: "What is your Question label ?",
+      type: "TEXT",
+      isRequired: false,
+      options: [],
+    });
+  };
 
   return (
     <>
-      {
-        questions.legth > 0 &&
-        <div className="form-block">
-          {questions.map(question => <Question key={question.id} question={question} />)}
-        </div>
-      }
+      {questions.map((question) => (
+        <Question key={question.id} question={question} />
+      ))}
       <div className="flex w-full justify-end gap-5 items-center">
-        <Button variant="contained" color="warning">
+        <Button
+          variant="filled"
+          color="deep-orange"
+          onClick={createNewQuestion}
+        >
           Add question
         </Button>
-        <Button variant="contained" size="medium">
+        <Button onClick={saveForm} variant="filled" color="blue">
           Save
         </Button>
       </div>
     </>
-  )
+  );
 }
