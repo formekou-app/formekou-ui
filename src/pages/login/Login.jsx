@@ -22,7 +22,7 @@ export function Login() {
   };
 
   return (
-    <main className="2xl:container h-screen m-auto">
+    <main className="2xl:container bg-white h-screen m-auto">
       <img
         className="fixed inset-0 w-7/12 hidden lg:block h-full"
         src={imageLogin}
