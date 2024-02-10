@@ -40,6 +40,7 @@ function App() {
           />
           <Route path="/*" element={<NotFoundPage />} />
           <Route path="/forms/create" element={<CreateForm />} />
+          <Route path="/home" element={<Home />} />
         </Routes>
       </BrowserRouter>
       <Alert />

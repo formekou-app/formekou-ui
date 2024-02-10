@@ -5,3 +5,5 @@ export { CreateForm } from "./forms/create/CreateForm.jsx";
 
 export { LoadingPage } from "./LoadingPage.jsx";
 export { NotFoundPage } from "./NotFoundPage.jsx";
+
+export { Home } from "./home/Home.jsx";
