@@ -1,23 +1,18 @@
-import { Input, Textarea, Checkbox } from "@material-tailwind/react";
+import { Input, Textarea, Switch } from "@material-tailwind/react";
 import { useCreateForm } from "../../hooks/useCreateForm";
 import { CollapseConfig } from "./CollapseConfig";
 
 export function CreateFormHeader() {
-  const { config, updateConfig } = useCreateForm();
+  const { config, questions, updateConfig } = useCreateForm();
 
   const updateConfigByName = ({ target }) => {
     const { name, value } = target;
     updateConfig(name, value);
   }
 
-  const updateCheckBox = ({target})=>{
-    const { name, checked } = target;
-    updateConfig(name, checked);
-  }
-
   return (
     <div
-      className="border-t-[10px] form-block p-5"
+      className="border-t-[10px] form-block"
       style={{ borderTopColor: config.color }}
     >
       <Input
@@ -38,12 +33,14 @@ export function CreateFormHeader() {
         value={config.description}
         onChange={updateConfigByName}
       />
+      <p className="text-gray-800 mt-5">
+        Number of questions: {questions.length}
+      </p>
       <CollapseConfig title="More configuration">
-        <Checkbox 
-          label="Is Private ?" 
-          name="isPrivate"
-          checked={config.isPrivate}
-          onChange={updateCheckBox}
+        <Switch
+          label="Private"
+          value={config.isPrivate}
+          onChange={(value)=>updateConfig("isPrivate", value)}
         />
         <Input
           type="color"
