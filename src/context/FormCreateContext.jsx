@@ -6,14 +6,15 @@ const DEFAULT_FORM_VALUE = {
   config: {
     title: "Untitled Form",
     description: "",
-    open: new Date().toISOString(),
-    close: "",
+    color: "#537ac9",
+    open: new Date().toLocaleTimeString(),
+    close: ""
   },
   questions: []
 }
 
 //TODO: migrate to zustand
-export function FormCreateProvider({children}) {
+export function CreateFormProvider({children}) {
   const [formCreate, setFormCreate] = useState(DEFAULT_FORM_VALUE);
   
   const updateConfig = (source, value)=>{

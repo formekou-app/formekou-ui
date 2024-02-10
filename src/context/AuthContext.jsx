@@ -8,7 +8,7 @@ export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
-  const [isTestingWhoAmi, setIsTestingWhoAmi] = useState(true);
+  const [isTestingWhoAmi, setIsTestingWhoAmi] = useState(false);
 
   useEffect(() => {
     const makeWhoAmiCall = async () => {
@@ -18,7 +18,7 @@ export function AuthProvider({ children }) {
         .finally(() => setIsTestingWhoAmi(false));
     };
 
-    makeWhoAmiCall();
+    // makeWhoAmiCall();
   }, []);
 
   return isTestingWhoAmi ? (

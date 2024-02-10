@@ -3,6 +3,13 @@
 @tailwind components;
 @tailwind utilities;
 
+
+@layer base{
+  body{
+    @apply bg-[#f3f3f3]
+  }
+}
+
 @layer components {
   .nf-container {
     @apply lg:px-24 lg:py-24 md:py-20 md:px-44 px-4 py-24 items-center flex justify-center flex-col-reverse lg:flex-row md:gap-28 gap-16;
@@ -18,5 +25,13 @@
 
   .lp-resp {
     @apply text-center flex flex-col items-center;
+  }
+
+  .form-block{
+    @apply w-full rounded-[15px] shadow-gray-50 bg-white 
+  }
+
+  .form-input{
+    @apply placeholder:text-gray-700
   }
 }

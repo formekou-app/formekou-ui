@@ -1,7 +1,12 @@
+import { FormHeader } from "../../../components/forms"
+import {CreateFormProvider} from "../../../context"
+
 export function CreateForm(){
   return (
-    <div>
-      Hello from create form
-    </div>
+    <CreateFormProvider>
+      <main className="mt-5 w-full mx-auto max-w-[900px]">
+        <FormHeader />
+      </main>
+    </CreateFormProvider>
   )
 }
