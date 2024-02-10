@@ -1,8 +1,8 @@
-import { Input, Textarea } from "@material-tailwind/react";
+import { Input, Textarea, Checkbox } from "@material-tailwind/react";
 import { useCreateForm } from "../../hooks/useCreateForm";
 import { CollapseConfig } from "./CollapseConfig";
 
-export function FormHeader() {
+export function CreateFormHeader() {
   const { config, updateConfig } = useCreateForm();
 
   const updateConfigByName = ({ target }) => {
@@ -10,10 +10,15 @@ export function FormHeader() {
     updateConfig(name, value);
   }
 
+  const updateCheckBox = ({target})=>{
+    const { name, checked } = target;
+    updateConfig(name, checked);
+  }
+
   return (
-    <div 
+    <div
       className="border-t-[10px] form-block p-5"
-      style={{borderTopColor: config.color}}
+      style={{ borderTopColor: config.color }}
     >
       <Input
         name="title"
@@ -34,25 +39,31 @@ export function FormHeader() {
         onChange={updateConfigByName}
       />
       <CollapseConfig title="More configuration">
-        <div className="flex items-end mb-5 gap-5 w-full">
-          <Input 
-            label="Open" 
-            name="open"
-            type="datetime-local" 
-          />
-          <Input 
-            label="Close"
-            type="datetime-local" 
-            name="close"
-          />
-        </div>
-        <Input 
+        <Checkbox 
+          label="Is Private ?" 
+          name="isPrivate"
+          checked={config.isPrivate}
+          onChange={updateCheckBox}
+        />
+        <Input
           type="color"
           name="color"
-          label="Color"
+          label="Main color"
           value={config.color}
           onChange={updateConfigByName}
         />
+        <div className="flex items-end mb-5 gap-5 w-full">
+          <Input
+            label="Open"
+            name="open"
+            type="datetime-local"
+          />
+          <Input
+            label="Close"
+            type="datetime-local"
+            name="close"
+          />
+        </div>
       </CollapseConfig>
     </div>
   )

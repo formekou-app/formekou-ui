@@ -8,7 +8,8 @@ const DEFAULT_FORM_VALUE = {
     description: "",
     color: "#537ac9",
     open: new Date().toLocaleTimeString(),
-    close: ""
+    close: "",
+    isPrivate: false
   },
   questions: []
 }

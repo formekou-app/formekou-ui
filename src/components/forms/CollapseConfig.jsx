@@ -14,7 +14,7 @@ export function CollapseConfig({ title, children }) {
         {showConfig ? <ExpandLess /> : <ExpandMore />}
       </div>
       <Collapse open={showConfig}>
-        <div className="mt-5 w-full">
+        <div className="flex flex-col gap-5 mt-5 w-full">
           {children}
         </div>
       </Collapse>
