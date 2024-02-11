@@ -3,12 +3,14 @@ import { CollapseConfig } from "./CollapseConfig";
 import { useShallowCreateForm } from "../../stores";
 
 function NumberOfQuestion() {
-  const numberOfQuestion = useShallowCreateForm((state) => state.questions.length)
+  const numberOfQuestion = useShallowCreateForm(
+    (state) => state.questions.length
+  );
   return (
     <p className="text-gray-800 mt-5">
       Number of questions: {numberOfQuestion}
     </p>
-  )
+  );
 }
 
 export function CreateFormHeader() {

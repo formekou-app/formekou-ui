@@ -8,7 +8,7 @@ import { auth } from "../config/firebase";
 
 const AUTH_ID_TOKEN = "auth_id_token";
 
-const getCachedCredential = () => localStorage.getItem(AUTH_ID_TOKEN)
+const getCachedCredential = () => localStorage.getItem(AUTH_ID_TOKEN);
 
 const cacheCredential = async (credential) => {
   const user = credential?.user;

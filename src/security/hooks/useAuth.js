@@ -3,17 +3,17 @@ import { useAuthStore } from "../stores";
 import { authFirebase } from "../authFirebase";
 import { getWhoAmi, postSignup } from "../authProvider";
 
-export function useAuth(){
+export function useAuth() {
   const navigate = useNavigate();
   const { user, setUser } = useAuthStore();
-  
-  const isConnected = ()=> user !== null;
+
+  const isConnected = () => user !== null;
 
   const signOut = async () => {
     await authFirebase.signOut();
     setUser(null);
     navigate("/");
-  }
+  };
 
   const signIn = async (provider) => {
     await authFirebase.signIn(provider);
@@ -33,6 +33,6 @@ export function useAuth(){
     signIn,
     signOut,
     signupWithEmail,
-    isConnected
+    isConnected,
   };
 }

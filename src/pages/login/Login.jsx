@@ -11,13 +11,12 @@ import formekouLogo from "../../assets/images/formekou.png";
 
 //TODO: show cool loading
 export function Login() {
-  const authentification = useAuth()
+  const authentification = useAuth();
   const notify = useNotify();
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
 
   const loginWithGoogle = async () => {
-    if (isLoading)
-      return;
+    if (isLoading) return;
 
     try {
       setIsLoading(true);

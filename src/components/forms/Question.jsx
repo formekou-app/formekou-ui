@@ -30,7 +30,7 @@ export const Question = React.memo(({ questionIndex }) => {
     deleteQuestion: state.deleteQuestion,
     updateQuestion: state.updateQuestion,
     duplicateQuestion: state.duplicateQuestion,
-    addQuestionOption: state.addQuestionOption
+    addQuestionOption: state.addQuestionOption,
   }));
 
   const updateQuestionByName = ({ target }) => {
@@ -115,9 +115,11 @@ export const Question = React.memo(({ questionIndex }) => {
         </IconButton>
       </div>
     </div>
-  )
-})
+  );
+});
+
+Question.displayName = "Question";
 
 Question.propTypes = {
-  question: PropTypes.object,
+  questionIndex: PropTypes.number,
 };

@@ -2,8 +2,8 @@ import { Alert as _Alert } from "@material-tailwind/react";
 import { useNotifyStore } from "../stores";
 
 export function Alert() {
-  const {message, config} = useNotifyStore();
-  
+  const { message, config } = useNotifyStore();
+
   return (
     <_Alert
       open={message !== ""}

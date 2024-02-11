@@ -5,26 +5,26 @@ import { useShallowCreateForm } from "../../stores";
 
 // to avoid multiple rendering
 function SaveButton() {
-  const formToCreate = useShallowCreateForm(state => ({
+  const formToCreate = useShallowCreateForm((state) => ({
     config: state.config,
-    questions: state.questions
+    questions: state.questions,
   }));
 
-  const saveForm = ()=>{
+  const saveForm = () => {
     console.log(formToCreate);
-  }
+  };
 
   return (
     <Button onClick={saveForm} variant="filled" color="blue">
       Save
     </Button>
-  )
+  );
 }
 
 export function CreateFormBody() {
-  const { numberOfQuestion, addQuestion } = useShallowCreateForm(state => ({
+  const { numberOfQuestion, addQuestion } = useShallowCreateForm((state) => ({
     numberOfQuestion: state.questions.length,
-    addQuestion: state.addQuestion
+    addQuestion: state.addQuestion,
   }));
 
   const createNewQuestion = () => {

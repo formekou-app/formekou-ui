@@ -9,8 +9,9 @@ const DEFAULT_CONFIG = {
 export const useNotifyStore = create((set) => ({
   message: "",
   config: DEFAULT_CONFIG,
-  setNotify: (message, config) => set(state => ({
-    message,
-    config: { ...state.config, ...config }
-  }))
+  setNotify: (message, config) =>
+    set((state) => ({
+      message,
+      config: { ...state.config, ...config },
+    })),
 }));
