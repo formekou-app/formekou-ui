@@ -1,10 +1,10 @@
 import { Input, IconButton } from "@material-tailwind/react";
 import { Delete as DeleteIcon } from "@mui/icons-material";
-import { useCreateForm } from "../../hooks/useCreateForm";
+import { useCreateFormStore } from "../../stores";
 
 /*eslint-disable*/
 export function QOption({ questionId, option }) {
-  const { updateQuestionOption, deleteQuestionOption } = useCreateForm();
+  const { updateQuestionOption, deleteQuestionOption } = useCreateFormStore();
 
   return (
     <div className="flex items-center gap-5">
