@@ -1,6 +1,6 @@
+import { useState } from "react";
 import { GoogleAuthProvider } from "firebase/auth";
 import { ManualLoginForm } from "./ManualLoginForm";
-import { Alert } from "../../components";
 
 import { useNotify } from "../../hooks";
 import { useAuth } from "../../security/hooks/useAuth";
@@ -9,16 +9,23 @@ import imageLogin from "../../assets/images/form.jpg";
 import googleIcon from "../../assets/images/google.svg";
 import formekouLogo from "../../assets/images/formekou.png";
 
+//TODO: show cool loading
 export function Login() {
   const authentification = useAuth()
-  const [notify, notifyConfig] = useNotify();
+  const notify = useNotify();
+  const [isLoading, setIsLoading] = useState(false)
 
   const loginWithGoogle = async () => {
+    if (isLoading)
+      return;
+
     try {
+      setIsLoading(true);
       await authentification.signIn(GoogleAuthProvider);
     } catch (error) {
-      console.log(error);
       notify("Oops, An error occured, please try again !!", { color: "red" });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -36,6 +43,7 @@ export function Login() {
             </a>
             <p className="text-gray-600 text-lg mt-1"> Welcome to formekou </p>
             <button
+              disabled={isLoading}
               className="transition py-3 px-6 mt-4 rounded-xl flex gap-4 justify-center bg-blue-50 hover:bg-blue-100 focus:bg-blue-100 active:bg-blue-200"
               onClick={loginWithGoogle}
             >
@@ -50,7 +58,6 @@ export function Login() {
             <ManualLoginForm />
           </div>
         </div>
-        <Alert notifyConfig={notifyConfig} />
       </div>
     </main>
   );

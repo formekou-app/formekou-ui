@@ -1,30 +1,18 @@
-import { useState } from "react";
-
-export const DEFAULT_CONFIG = {
-  message: "",
-  config: {
-    variant: "ghost",
-    color: "gray",
-    duration: 2500,
-  },
-};
+import { useNotifyStore } from "../stores";
 
 export function useNotify() {
-  const [notifyConfig, setNotifyConfig] = useState(DEFAULT_CONFIG);
+  const { config, setNotify } = useNotifyStore();
 
   const clearNotification = async () => {
     setTimeout(() => {
-      setNotifyConfig(DEFAULT_CONFIG);
-    }, [notifyConfig.config.duration]);
+      setNotify("", {});
+    }, [config.duration]);
   };
 
   const notify = (message, updatedConfig = {}) => {
-    setNotifyConfig({
-      message,
-      config: { ...DEFAULT_CONFIG.config, ...updatedConfig },
-    });
+    setNotify(message, updatedConfig);
     clearNotification();
   };
 
-  return [notify, notifyConfig];
+  return notify;
 }
