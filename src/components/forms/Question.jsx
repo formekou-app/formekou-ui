@@ -13,9 +13,9 @@ import {
 import { v4 as uuid } from "uuid";
 import PropTypes from "prop-types";
 
-import { useCreateForm } from "../../hooks/useCreateForm";
 import { QUESTION_TYPES } from "./utils";
 import { QOption } from "./QOption";
+import { useCreateFormStore } from "../../stores";
 
 export function Question({ question = {} }) {
   const {
@@ -23,7 +23,12 @@ export function Question({ question = {} }) {
     updateQuestion,
     duplicateQuestion,
     addQuestionOption,
-  } = useCreateForm();
+  } = useCreateFormStore((state) => ({
+    deleteQuestion: state.deleteQuestion,
+    updateQuestion: state.updateQuestion,
+    duplicateQuestion: state.duplicateQuestion,
+    addQuestionOption: state.addQuestionOption
+  }));
 
   const updateQuestionByName = ({ target }) => {
     updateQuestion(question.id, target.name, target.value);

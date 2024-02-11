@@ -1,9 +1,21 @@
 import { Input, Textarea, Switch } from "@material-tailwind/react";
-import { useCreateForm } from "../../hooks/useCreateForm";
 import { CollapseConfig } from "./CollapseConfig";
+import { useShallowCreateForm } from "../../stores";
+
+function NumberOfQuestion() {
+  const numberOfQuestion = useShallowCreateForm((state) => state.questions.length)
+  return (
+    <p className="text-gray-800 mt-5">
+      Number of questions: {numberOfQuestion}
+    </p>
+  )
+}
 
 export function CreateFormHeader() {
-  const { config, questions, updateConfig } = useCreateForm();
+  const { config, updateConfig } = useShallowCreateForm((state) => ({
+    config: state.config,
+    updateConfig: state.updateConfig,
+  }));
 
   const updateConfigByName = ({ target }) => {
     const { name, value } = target;
@@ -33,9 +45,7 @@ export function CreateFormHeader() {
         value={config.description}
         onChange={updateConfigByName}
       />
-      <p className="text-gray-800 mt-5">
-        Number of questions: {questions.length}
-      </p>
+      <NumberOfQuestion />
       <CollapseConfig title="More configuration">
         <Switch
           label="Private"
