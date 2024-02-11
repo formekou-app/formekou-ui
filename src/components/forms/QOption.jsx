@@ -4,7 +4,12 @@ import { useCreateFormStore } from "../../stores";
 
 /*eslint-disable*/
 export function QOption({ questionId, option }) {
-  const { updateQuestionOption, deleteQuestionOption } = useCreateFormStore();
+  const { updateQuestionOption, deleteQuestionOption } = useCreateFormStore(
+    (state) => ({
+      updateQuestionOption: state.updateQuestionOption,
+      deleteQuestionOption: state.deleteQuestionOption,
+    })
+  );
 
   return (
     <div className="flex items-center gap-5">

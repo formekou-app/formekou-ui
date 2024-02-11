@@ -1,9 +1,9 @@
 import { Input, Textarea, Switch } from "@material-tailwind/react";
 import { CollapseConfig } from "./CollapseConfig";
-import { useShallowCreateForm } from "../../stores";
+import { useCreateFormStore } from "../../stores";
 
 function NumberOfQuestion() {
-  const numberOfQuestion = useShallowCreateForm(
+  const numberOfQuestion = useCreateFormStore(
     (state) => state.questions.length
   );
   return (
@@ -14,7 +14,7 @@ function NumberOfQuestion() {
 }
 
 export function CreateFormHeader() {
-  const { config, updateConfig } = useShallowCreateForm((state) => ({
+  const { config, updateConfig } = useCreateFormStore((state) => ({
     config: state.config,
     updateConfig: state.updateConfig,
   }));

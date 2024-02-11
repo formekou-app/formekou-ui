@@ -16,7 +16,7 @@ import PropTypes from "prop-types";
 
 import { QUESTION_TYPES } from "./utils";
 import { QOption } from "./QOption";
-import { useShallowCreateForm } from "../../stores";
+import { useCreateFormStore } from "../../stores";
 
 export const Question = React.memo(({ questionIndex }) => {
   const {
@@ -25,7 +25,7 @@ export const Question = React.memo(({ questionIndex }) => {
     updateQuestion,
     duplicateQuestion,
     addQuestionOption,
-  } = useShallowCreateForm((state) => ({
+  } = useCreateFormStore((state) => ({
     question: state.questions.at(questionIndex),
     deleteQuestion: state.deleteQuestion,
     updateQuestion: state.updateQuestion,

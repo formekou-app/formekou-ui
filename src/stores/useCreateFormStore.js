@@ -92,7 +92,3 @@ export const useCreateFormStore = createWithEqualityFn((set) => {
     addQuestionOption,
   };
 }, shallow);
-
-export const useShallowCreateForm = (selector) => {
-  return useCreateFormStore(selector);
-};

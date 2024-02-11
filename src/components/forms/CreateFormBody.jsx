@@ -1,11 +1,11 @@
 import { Button } from "@material-tailwind/react";
 import { v4 as uuid } from "uuid";
 import { Question } from "./Question";
-import { useShallowCreateForm } from "../../stores";
+import { useCreateFormStore } from "../../stores";
 
 // to avoid multiple rendering
 function SaveButton() {
-  const formToCreate = useShallowCreateForm((state) => ({
+  const formToCreate = useCreateFormStore((state) => ({
     config: state.config,
     questions: state.questions,
   }));
@@ -22,7 +22,7 @@ function SaveButton() {
 }
 
 export function CreateFormBody() {
-  const { numberOfQuestion, addQuestion } = useShallowCreateForm((state) => ({
+  const { numberOfQuestion, addQuestion } = useCreateFormStore((state) => ({
     numberOfQuestion: state.questions.length,
     addQuestion: state.addQuestion,
   }));
