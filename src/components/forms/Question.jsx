@@ -1,3 +1,4 @@
+import React from "react";
 import {
   IconButton,
   Button,
@@ -15,15 +16,17 @@ import PropTypes from "prop-types";
 
 import { QUESTION_TYPES } from "./utils";
 import { QOption } from "./QOption";
-import { useCreateFormStore } from "../../stores";
+import { useShallowCreateForm } from "../../stores";
 
-export function Question({ question = {} }) {
+export const Question = React.memo(({ questionIndex }) => {
   const {
+    question,
     deleteQuestion,
     updateQuestion,
     duplicateQuestion,
     addQuestionOption,
-  } = useCreateFormStore((state) => ({
+  } = useShallowCreateForm((state) => ({
+    question: state.questions.at(questionIndex),
     deleteQuestion: state.deleteQuestion,
     updateQuestion: state.updateQuestion,
     duplicateQuestion: state.duplicateQuestion,
@@ -88,7 +91,7 @@ export function Question({ question = {} }) {
         <Switch
           value={question.isRequired}
           onChange={({ target }) =>
-            updateQuestion(question.id, "isRequired", target.value)
+            updateQuestion(question.id, "isRequired", target.checked)
           }
           label="Required"
         />
@@ -112,8 +115,8 @@ export function Question({ question = {} }) {
         </IconButton>
       </div>
     </div>
-  );
-}
+  )
+})
 
 Question.propTypes = {
   question: PropTypes.object,

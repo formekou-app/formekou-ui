@@ -3,12 +3,29 @@ import { v4 as uuid } from "uuid";
 import { Question } from "./Question";
 import { useShallowCreateForm } from "../../stores";
 
-export function CreateFormBody() {
-  const {questions, addQuestion} = useShallowCreateForm(state => ({questions: state.questions, addQuestion: state.addQuestion}));
+// to avoid multiple rendering
+function SaveButton() {
+  const formToCreate = useShallowCreateForm(state => ({
+    config: state.config,
+    questions: state.questions
+  }));
 
-  const saveForm = () => {
-    // console.log({ config, questions });
-  };
+  const saveForm = ()=>{
+    console.log(formToCreate);
+  }
+
+  return (
+    <Button onClick={saveForm} variant="filled" color="blue">
+      Save
+    </Button>
+  )
+}
+
+export function CreateFormBody() {
+  const { numberOfQuestion, addQuestion } = useShallowCreateForm(state => ({
+    numberOfQuestion: state.questions.length,
+    addQuestion: state.addQuestion
+  }));
 
   const createNewQuestion = () => {
     addQuestion({
@@ -22,8 +39,8 @@ export function CreateFormBody() {
 
   return (
     <>
-      {questions.map((question) => (
-        <Question key={question.id} question={question} />
+      {Array.from({ length: numberOfQuestion }, (_, index) => (
+        <Question key={uuid()} questionIndex={index} />
       ))}
       <div className="flex w-full justify-end gap-5 items-center">
         <Button
@@ -33,9 +50,7 @@ export function CreateFormBody() {
         >
           Add question
         </Button>
-        <Button onClick={saveForm} variant="filled" color="blue">
-          Save
-        </Button>
+        <SaveButton />
       </div>
     </>
   );

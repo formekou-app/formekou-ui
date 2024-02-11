@@ -15,7 +15,7 @@ import { authFirebase } from "./security/authFirebase";
 import { useAuthStore } from "./security/stores";
 
 function App() {
-  const { setUser } = useAuthStore();
+  const setUser = useAuthStore(state => state.setUser);
   const [isTestingWhoAmi, setIsTestingWhoAmi] = useState(true);
 
   useEffect(() => {
