@@ -10,7 +10,7 @@ export async function getWhoAmi() {
   return axios
     .get(`${API_URL}/whoami`, {
       headers: {
-        Authorization: `Bearer ${authFirebase.getCachedAuth().token}`,
+        Authorization: `Bearer ${authFirebase.getCachedCredential()}`,
       },
     })
     .then((response) => response.data);

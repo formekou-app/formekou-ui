@@ -29,7 +29,7 @@ export function ManualLoginForm() {
     }
 
     try {
-      authentification.signupWithEmail(data);
+      await authentification.signupWithEmail(data);
     } catch (error) {
       notify("Oops, Signup failed, please try again !!", { color: "red" });
     } finally {
