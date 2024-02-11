@@ -6,23 +6,20 @@ import { Email, Lock, Person } from "@mui/icons-material";
 import { Alert } from "../../components";
 
 import { useNotify } from "../../hooks";
-import { useAuth } from "../../security/hooks";
-
-import { postSignup } from "../../security/authProvider";
+import { useAuth } from "../../security/hooks/useAuth";
 
 export function ManualLoginForm() {
   const [isCreate, setIsCreate] = useState(false);
-  const [notify, notifyConfig] = useNotify();
   const [isLoading, setIsLoading] = useState(false);
   const { register, handleSubmit } = useForm();
+  const [notify, notifyConfig] = useNotify();
   const authentification = useAuth();
 
   const loginManually = async ({ ...data }) => {
     setIsLoading(true);
     if (!isCreate) {
       try {
-        delete data.lastName;
-        await authentification.login(data);
+        await authentification.signIn(data);
       } catch (error) {
         notify("Oops, An error occured, please try again !!", { color: "red" });
       } finally {
@@ -32,9 +29,7 @@ export function ManualLoginForm() {
     }
 
     try {
-      await postSignup(data);
-      setIsCreate(false);
-      notify("Account created! You can now log in", { color: "green" });
+      authentification.signupWithEmail(data);
     } catch (error) {
       notify("Oops, Signup failed, please try again !!", { color: "red" });
     } finally {

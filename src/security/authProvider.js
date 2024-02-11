@@ -1,7 +1,7 @@
 /*eslint-disable*/
 
 import axios from "axios";
-import authFirebase from "./authFirebase";
+import { authFirebase } from "./authFirebase";
 
 const API_URL = process.env.API_URL;
 

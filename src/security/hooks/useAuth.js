@@ -1,27 +1,38 @@
-import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuthStore } from "../stores";
+import { authFirebase } from "../authFirebase";
+import { getWhoAmi, postSignup } from "../authProvider";
 
-import { AuthContext } from "../../context";
-import authFirebase from "../authFirebase";
-import { getWhoAmi } from "../authProvider";
-
-export function useAuth() {
-  const { user, setUser } = useContext(AuthContext);
+export function useAuth(){
   const navigate = useNavigate();
+  const { user, setUser } = useAuthStore();
+  
+  const isConnected = ()=> user !== null;
 
-  const isConnected = () => user !== null;
+  const signOut = async () => {
+    await authFirebase.signOut();
+    setUser(null);
+    navigate("/");
+  }
 
-  const logout = async () => {
-    await authFirebase.logout();
-    window.location.reload();
-  };
-
-  const login = async (provider) => {
-    await authFirebase.login(provider);
+  const signIn = async (provider) => {
+    await authFirebase.signIn(provider);
     const userConnected = await getWhoAmi();
     setUser(userConnected);
     navigate("/profile");
   };
 
-  return { user, setUser, isConnected, logout, login };
+  const signupWithEmail = async (provider) => {
+    await authFirebase.signup(provider);
+    signIn(await postSignup(provider));
+  };
+
+  return {
+    user,
+    setUser,
+    signIn,
+    signOut,
+    signupWithEmail,
+    isConnected
+  };
 }

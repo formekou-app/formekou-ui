@@ -3,19 +3,19 @@ import { ManualLoginForm } from "./ManualLoginForm";
 import { Alert } from "../../components";
 
 import { useNotify } from "../../hooks";
-import { useAuth } from "../../security/hooks";
+import { useAuth } from "../../security/hooks/useAuth";
 
 import imageLogin from "../../assets/images/form.jpg";
 import googleIcon from "../../assets/images/google.svg";
 import formekouLogo from "../../assets/images/formekou.png";
 
 export function Login() {
-  const authentification = useAuth();
+  const authentification = useAuth()
   const [notify, notifyConfig] = useNotify();
 
   const loginWithGoogle = async () => {
     try {
-      await authentification.login(GoogleAuthProvider);
+      await authentification.signIn(GoogleAuthProvider);
     } catch (error) {
       notify("Oops, An error occured, please try again !!", { color: "red" });
     }
