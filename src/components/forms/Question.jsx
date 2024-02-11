@@ -1,3 +1,4 @@
+import React from "react";
 import {
   IconButton,
   Button,
@@ -13,17 +14,24 @@ import {
 import { v4 as uuid } from "uuid";
 import PropTypes from "prop-types";
 
-import { useCreateForm } from "../../hooks/useCreateForm";
 import { QUESTION_TYPES } from "./utils";
 import { QOption } from "./QOption";
+import { useCreateFormStore } from "../../stores";
 
-export function Question({ question = {} }) {
+export const Question = React.memo(({ questionIndex }) => {
   const {
+    question,
     deleteQuestion,
     updateQuestion,
     duplicateQuestion,
     addQuestionOption,
-  } = useCreateForm();
+  } = useCreateFormStore((state) => ({
+    question: state.questions.at(questionIndex),
+    deleteQuestion: state.deleteQuestion,
+    updateQuestion: state.updateQuestion,
+    duplicateQuestion: state.duplicateQuestion,
+    addQuestionOption: state.addQuestionOption,
+  }));
 
   const updateQuestionByName = ({ target }) => {
     updateQuestion(question.id, target.name, target.value);
@@ -83,7 +91,7 @@ export function Question({ question = {} }) {
         <Switch
           value={question.isRequired}
           onChange={({ target }) =>
-            updateQuestion(question.id, "isRequired", target.value)
+            updateQuestion(question.id, "isRequired", target.checked)
           }
           label="Required"
         />
@@ -108,8 +116,10 @@ export function Question({ question = {} }) {
       </div>
     </div>
   );
-}
+});
+
+Question.displayName = "Question";
 
 Question.propTypes = {
-  question: PropTypes.object,
+  questionIndex: PropTypes.number,
 };

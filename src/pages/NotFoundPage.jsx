@@ -4,7 +4,6 @@ import { Button } from "@material-tailwind/react";
 import codeStatus from "../assets/images/404-2.png";
 import group from "../assets/images/Group.png";
 
-//TODO:  refactor all button using material tailwind button
 export function NotFoundPage() {
   const navigate = useNavigate();
 

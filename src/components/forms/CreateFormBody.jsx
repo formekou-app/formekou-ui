@@ -1,14 +1,31 @@
 import { Button } from "@material-tailwind/react";
 import { v4 as uuid } from "uuid";
-import { useCreateForm } from "../../hooks/useCreateForm";
 import { Question } from "./Question";
+import { useCreateFormStore } from "../../stores";
 
-export function CreateFormBody() {
-  const { questions, addQuestion, createValue } = useCreateForm();
+// to avoid multiple rendering
+function SaveButton() {
+  const formToCreate = useCreateFormStore((state) => ({
+    config: state.config,
+    questions: state.questions,
+  }));
 
   const saveForm = () => {
-    console.log(createValue);
+    console.log(formToCreate);
   };
+
+  return (
+    <Button onClick={saveForm} variant="filled" color="blue">
+      Save
+    </Button>
+  );
+}
+
+export function CreateFormBody() {
+  const { numberOfQuestion, addQuestion } = useCreateFormStore((state) => ({
+    numberOfQuestion: state.questions.length,
+    addQuestion: state.addQuestion,
+  }));
 
   const createNewQuestion = () => {
     addQuestion({
@@ -22,8 +39,8 @@ export function CreateFormBody() {
 
   return (
     <>
-      {questions.map((question) => (
-        <Question key={question.id} question={question} />
+      {Array.from({ length: numberOfQuestion }, (_, index) => (
+        <Question key={uuid()} questionIndex={index} />
       ))}
       <div className="flex w-full justify-end gap-5 items-center">
         <Button
@@ -33,9 +50,7 @@ export function CreateFormBody() {
         >
           Add question
         </Button>
-        <Button onClick={saveForm} variant="filled" color="blue">
-          Save
-        </Button>
+        <SaveButton />
       </div>
     </>
   );
