@@ -24,7 +24,8 @@ export function useAuth() {
 
   const signupWithEmail = async (provider) => {
     await authFirebase.signup(provider);
-    signIn(await postSignup(provider));
+    setUser(await postSignup(provider));
+    navigate("/profile");
   };
 
   return {

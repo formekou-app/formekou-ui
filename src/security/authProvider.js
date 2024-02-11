@@ -18,6 +18,10 @@ export async function getWhoAmi() {
 
 export async function postSignup(data) {
   return axios
-    .post(`${API_URL}/signup`, data)
+    .post(`${API_URL}/signup`, data, {
+      headers: {
+        Authorization: `Bearer ${authFirebase.getCachedCredential()}`,
+      },
+    })
     .then((response) => response.data);
 }
