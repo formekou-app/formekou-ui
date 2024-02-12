@@ -10,7 +10,11 @@ export function Home() {
           <div className="w-full bg-gray-500 p-2 rounded-lg">
             <form className="flex bord">
               <Search />
-              <input type="text" placeholder="Find wokrspace or typeform" className="w-full"/>
+              <input
+                type="text"
+                placeholder="Find wokrspace or typeform"
+                className="w-full"
+              />
             </form>
           </div>
           <div className="flex justify-between">
@@ -21,12 +25,20 @@ export function Home() {
             <AddCircleRounded />
           </div>
           <ul>
-            <li className="flex justify-between p-1.5 bg-gray-500/30">My workspace<span>1</span></li>
-            <li className="flex justify-between p-1.5">My workspaces<span>2</span></li>
-            <li className="flex justify-between p-1.5">My workspace<span>3</span></li>
+            <li className="flex justify-between p-1.5 bg-gray-500/30">
+              My workspace<span>1</span>
+            </li>
+            <li className="flex justify-between p-1.5">
+              My workspaces<span>2</span>
+            </li>
+            <li className="flex justify-between p-1.5">
+              My workspace<span>3</span>
+            </li>
           </ul>
           <div className="p-1.5">
-            <h3><span>Ricka Princy</span>' account</h3>
+            <h3>
+              <span>Ricka Princy</span> account
+            </h3>
             <p>Responses collected</p>
           </div>
           <div className="p-1.5">
@@ -34,13 +46,9 @@ export function Home() {
             <p>Resets on Mar 10</p>
             <span className="text-green-500">Increase response limit</span>
           </div>
-          <div>
-
-          </div>
+          <div></div>
         </aside>
-        <main className="w-5/6">
-
-        </main>
+        <main className="w-5/6"></main>
       </div>
     </div>
   );
