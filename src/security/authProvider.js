@@ -1,27 +1,12 @@
-/*eslint-disable*/
+import { securityApi } from "../providers/api";
 
-import axios from "axios";
-import { authFirebase } from "./authFirebase";
+const authProvider = {
+  getWhoAmi: async () => {
+    return securityApi.getWhoAmi().then((response) => response.data);
+  },
+  signup: async (data) => {
+    return securityApi.signup(data).then((response) => response.data);
+  },
+};
 
-const API_URL = process.env.API_URL;
-
-//TODO: generate api client
-export async function getWhoAmi() {
-  return axios
-    .get(`${API_URL}/whoami`, {
-      headers: {
-        Authorization: `Bearer ${authFirebase.getCachedCredential()}`,
-      },
-    })
-    .then((response) => response.data);
-}
-
-export async function postSignup(data) {
-  return axios
-    .post(`${API_URL}/signup`, data, {
-      headers: {
-        Authorization: `Bearer ${authFirebase.getCachedCredential()}`,
-      },
-    })
-    .then((response) => response.data);
-}
+export default authProvider;

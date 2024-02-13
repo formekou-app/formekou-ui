@@ -11,8 +11,8 @@ import {
 import { Authentificate } from "./security/componens";
 import { Alert } from "./components";
 
-import { getWhoAmi } from "./security/authProvider";
-import { authFirebase } from "./security/authFirebase";
+import authFirebase from "./security/authFirebase";
+import authProvider from "./security/authProvider";
 import { useAuthStore } from "./security/stores";
 
 function App() {
@@ -21,7 +21,8 @@ function App() {
 
   useEffect(() => {
     const makeWhoAmiCall = async () => {
-      getWhoAmi()
+      authProvider
+        .getWhoAmi()
         .then((userConnected) => setUser(userConnected))
         .catch(() => authFirebase.signOut())
         .finally(() => setIsTestingWhoAmi(false));
