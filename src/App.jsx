@@ -1,6 +1,13 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Login, Profile, NotFoundPage, CreateForm, LoadingPage } from "./pages";
+import {
+  Login,
+  Profile,
+  NotFoundPage,
+  CreateForm,
+  LoadingPage,
+  Home,
+} from "./pages";
 import { Authentificate } from "./security/componens";
 import { Alert } from "./components";
 
@@ -40,6 +47,7 @@ function App() {
           />
           <Route path="/*" element={<NotFoundPage />} />
           <Route path="/forms/create" element={<CreateForm />} />
+          <Route path="/home" element={<Home />} />
         </Routes>
       </BrowserRouter>
       <Alert />
