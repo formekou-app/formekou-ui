@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "../stores";
-import { authFirebase } from "../authFirebase";
-import { getWhoAmi, postSignup } from "../authProvider";
+import authFirebase from "../authFirebase";
+import authProvider from "../authProvider";
 
 export function useAuth() {
   const navigate = useNavigate();
@@ -17,14 +17,14 @@ export function useAuth() {
 
   const signIn = async (provider) => {
     await authFirebase.signIn(provider);
-    const userConnected = await getWhoAmi();
+    const userConnected = await authProvider.getWhoAmi();
     setUser(userConnected);
     navigate("/profile");
   };
 
   const signupWithEmail = async (provider) => {
     await authFirebase.signup(provider);
-    setUser(await postSignup(provider));
+    setUser(await authProvider.signup(provider));
     navigate("/profile");
   };
 
