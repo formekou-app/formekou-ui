@@ -3,11 +3,29 @@ import { shallow } from "zustand/shallow";
 import { v4 as uuid } from "uuid";
 
 export const useCreateFormStore = createWithEqualityFn((set) => {
-  const updateConfig = (source, value) =>
+  const pushUndoStack = (state) =>
+    set((prevState) => ({
+      ...prevState,
+      undoStack: [...prevState.undoStack, state],
+    }));
+
+  const pushRedoStack = (state) =>
+    set((prevState) => ({
+      ...prevState,
+      redoStack: [...prevState.redoStack, state],
+    }));
+
+  const updateConfig = (source, value) => {
+    const prevConfig = useCreateFormStore.getState().config;
+
+    pushUndoStack(prevConfig);
+
     set((state) => ({
       ...state,
       config: { ...state.config, [source]: value },
+      redoStack: [],
     }));
+  };
 
   const updateQuestion = (questionId, source, value) =>
     set((state) => ({
@@ -71,6 +89,32 @@ export const useCreateFormStore = createWithEqualityFn((set) => {
       .updateQuestion(question.id, "options", [...question.options, option]);
   };
 
+  const undo = () => {
+    const { undoStack } = useCreateFormStore.getState();
+    if (undoStack.length > 0) {
+      const prevState = undoStack.pop();
+      pushRedoStack(useCreateFormStore.getState().config);
+      set((state) => ({
+        ...state,
+        config: prevState,
+        undoStack: undoStack,
+      }));
+    }
+  };
+
+  const redo = () => {
+    const { redoStack } = useCreateFormStore.getState();
+    if (redoStack.length > 0) {
+      const nextState = redoStack.pop();
+      pushUndoStack(useCreateFormStore.getState().config);
+      set((state) => ({
+        ...state,
+        config: nextState,
+        redoStack: redoStack,
+      }));
+    }
+  };
+
   return {
     config: {
       title: "Untitled Form",
@@ -81,6 +125,8 @@ export const useCreateFormStore = createWithEqualityFn((set) => {
       isPrivate: false,
     },
     questions: [],
+    undoStack: [],
+    redoStack: [],
     updateConfig,
     updateQuestion,
     getQuestion,
@@ -90,5 +136,7 @@ export const useCreateFormStore = createWithEqualityFn((set) => {
     updateQuestionOption,
     deleteQuestionOption,
     addQuestionOption,
+    undo,
+    redo,
   };
 }, shallow);
