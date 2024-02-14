@@ -11,9 +11,10 @@ import {
 import { Authentificate } from "./security/componens";
 import { Alert } from "./components";
 
-import authFirebase from "./security/authFirebase";
-import authProvider from "./security/authProvider";
 import { useAuthStore } from "./security/stores";
+import { authProvider } from "./providers";
+
+import authFirebase from "./security/authFirebase";
 
 function App() {
   const setUser = useAuthStore((state) => state.setUser);

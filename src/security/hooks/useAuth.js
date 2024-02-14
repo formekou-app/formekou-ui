@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "../stores";
+import {authProvider, usersProvider} from "../../providers";
 import authFirebase from "../authFirebase";
-import authProvider from "../authProvider";
 
 export function useAuth() {
   const navigate = useNavigate();
@@ -11,8 +11,7 @@ export function useAuth() {
 
   const signOut = async () => {
     await authFirebase.signOut();
-    setUser(null);
-    navigate("/");
+    window.location.reload(true);
   };
 
   const signIn = async (provider) => {
@@ -22,9 +21,11 @@ export function useAuth() {
     navigate("/profile");
   };
 
+  //TODO: not do everything here
   const signupWithEmail = async (provider) => {
     await authFirebase.signup(provider);
-    setUser(await authProvider.signup(provider));
+    const user = await authProvider.getWhoAmi();
+    setUser(await usersProvider.updateProfile({...user, lastName: provider.lastName}));
     navigate("/profile");
   };
 
