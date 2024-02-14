@@ -8,13 +8,13 @@ export function Navbar() {
   const PROFILE_IMAGE = defaultImage;
 
   return (
-    <div className="w-full border-b-1 border-b-gray-200 flex items-center justify-between h-[50px] px-[10px] bg-white fixed top-0 left-0">
+    <div className="w-full border-b-[1px] border-b-gray-200 flex items-center justify-between h-[50px] px-[10px] bg-white fixed top-0 left-0">
       <div className="flex items-center gap-2">
         <img src={logoImage} className="w-[35px] h-[35px]"/>
         <p className="font-bold">Formekou</p>
       </div>
-      <div className="flex gap-5 items-center">
-        <Button size="sm" color="green" className="rounded-[1px] bg-main-black">
+      <div className="flex gap-3 items-center">
+        <Button size="sm" color="green" className="rounded-[5px] bg-main-black">
           View Plans
         </Button>
         <img src={PROFILE_IMAGE} className="w-[35px] h-[35px] rounded-[50%]"/>

@@ -1,9 +1,12 @@
 import { Navbar } from "../../components";
 import { Search, AddCircleRounded } from "@mui/icons-material";
+import { Menu } from "../../components/menu";
 
 export function Home() {
   return (
     <div className="section">
+      <Navbar />
+      <Menu />
       <div className="w-full h-[60px] flex items-center justify-between">
         <div className="w-full bg-gray-500 p-2 rounded-lg">
           <form className="flex bord">
@@ -45,7 +48,6 @@ export function Home() {
           <span className="text-green-500">Increase response limit</span>
         </div>
       </div>
-      <Navbar />
     </div>
   );
 }
