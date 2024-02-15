@@ -16,7 +16,7 @@ import PropTypes from "prop-types";
 
 import { QUESTION_TYPES } from "./utils";
 import { QOption } from "./QOption";
-import { useCreateFormStore } from "../../stores";
+import { useCreateFormStore } from "../../../../stores";
 
 export const Question = React.memo(({ questionIndex }) => {
   const {

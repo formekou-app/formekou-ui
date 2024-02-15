@@ -1,10 +1,10 @@
 import { useState } from "react";
-import PropTypes from "prop-types";
-import { Typography } from "@material-tailwind/react";
+import { Typography, Collapse, IconButton } from "@material-tailwind/react";
 import { Add, ExpandLess, ExpandMore } from "@mui/icons-material";
+import PropTypes from "prop-types";
 
-export function ViewMenu({ label }) {
-  const [showMenuContent, setShowMenuContent] = useState(false);
+export function ListMenu({ label, children }) {
+  const [showMenuContent, setShowMenuContent] = useState(true);
 
   return (
     <div
@@ -19,18 +19,24 @@ export function ViewMenu({ label }) {
             <ExpandMore className="text-main-black" />
           )}
           <Typography
-            variant="p"
+            variant="small"
             className="text-bgray text-[13px] font-semibold"
           >
             {label}
           </Typography>
         </div>
-        <Add className="py-[1px] bg-gray-300 rounded-[5px]" />
+        <IconButton variant="text" size="sm">
+          <Add className="text-bgray" />
+        </IconButton>
       </div>
+      <Collapse open={showMenuContent} className="pt-3">
+        {children}
+      </Collapse>
     </div>
   );
 }
 
-ViewMenu.propTypes = {
+ListMenu.propTypes = {
   label: PropTypes.string,
+  children: PropTypes.any,
 };

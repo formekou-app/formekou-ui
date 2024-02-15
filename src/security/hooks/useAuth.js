@@ -18,7 +18,7 @@ export function useAuth() {
     await authFirebase.signIn(provider);
     const userConnected = await authProvider.getWhoAmi();
     setUser(userConnected);
-    navigate("/profile");
+    navigate("/dashboard");
   };
 
   //TODO: not do everything here

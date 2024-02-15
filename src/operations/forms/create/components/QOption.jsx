@@ -1,6 +1,6 @@
 import { Input, IconButton } from "@material-tailwind/react";
 import { Delete as DeleteIcon } from "@mui/icons-material";
-import { useCreateFormStore } from "../../stores";
+import { useCreateFormStore } from "../../../../stores";
 
 /*eslint-disable*/
 export function QOption({ questionId, option }) {

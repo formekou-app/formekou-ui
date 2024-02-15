@@ -1,9 +1,7 @@
 import { Button, Input } from "@material-tailwind/react";
-
-import { useCreateFormStore } from "../../stores";
-
 import { Star, Undo, Redo, MoreVert } from "@mui/icons-material";
 
+import { useCreateFormStore } from "../../stores";
 import Logo from "../../assets/images/logo.png";
 
 export function NavBar() {
