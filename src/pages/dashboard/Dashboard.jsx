@@ -10,10 +10,10 @@ export function Dashboard() {
     <Layout>
       <Routes>
         <Route path="forms/create" element={<FormCreate />} />
-        <Route path="/profile" element={<ProfileShow />}/>
+        <Route path="/profile" element={<ProfileShow />} />
         <Route path="/" element={<FormList />} />
         <Route path="/*" element={<NotFoundPage />} />
       </Routes>
     </Layout>
-  )
+  );
 }

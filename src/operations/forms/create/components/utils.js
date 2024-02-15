@@ -1,4 +1,4 @@
-//TODO: use generated client 
+//TODO: use generated client
 export const QUESTION_TYPES = [
   {
     label: "Radio",

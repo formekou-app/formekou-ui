@@ -5,9 +5,9 @@ import logoImage from "../../../assets/images/logo.png";
 import { useAuthStore } from "../../../security/stores";
 
 export function Navbar() {
-  // TODO: or use user profile
   const user = useAuthStore((state) => state.user);
-  const PROFILE_IMAGE = (user  && user.profilePicture) ? user.profilePicture : defaultImage;
+  const PROFILE_IMAGE =
+    user && user.profilePicture ? user.profilePicture : defaultImage;
 
   return (
     <div className="w-full border-b-[1px] border-b-gray-200 flex items-center justify-between h-[50px] px-[10px] bg-white fixed top-0 left-0">

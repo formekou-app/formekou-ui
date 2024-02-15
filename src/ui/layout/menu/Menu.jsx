@@ -17,8 +17,12 @@ export function Menu() {
         />
       </div>
       <ListMenu label="WORKSPACE">
-        <ListMenuItem name="Study" value={55}/>
-        <ListMenuItem name="Work" value={5} style={{backgroundColor: "white"}}/>
+        <ListMenuItem name="Study" value={55} />
+        <ListMenuItem
+          name="Work"
+          value={5}
+          style={{ backgroundColor: "white" }}
+        />
       </ListMenu>
     </div>
   );

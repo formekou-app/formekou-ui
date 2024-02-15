@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 import { Menu } from "./menu/Menu";
 import { Navbar } from "./navbar/Navbar";
 
@@ -14,5 +16,9 @@ export function Layout({ children }) {
         {children}
       </main>
     </div>
-  )
+  );
 }
+
+Layout.propTypes = {
+  children: PropTypes.object,
+};

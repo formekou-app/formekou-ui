@@ -29,11 +29,7 @@ export function ListMenu({ label, children }) {
           <Add className="text-bgray" />
         </IconButton>
       </div>
-      <Collapse
-        open={showMenuContent}
-        className="pt-3"
-
-      >
+      <Collapse open={showMenuContent} className="pt-3">
         {children}
       </Collapse>
     </div>
@@ -42,5 +38,5 @@ export function ListMenu({ label, children }) {
 
 ListMenu.propTypes = {
   label: PropTypes.string,
-  children: PropTypes.any
+  children: PropTypes.any,
 };

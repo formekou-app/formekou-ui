@@ -1,11 +1,6 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import {
-  Login,
-  NotFoundPage,
-  LoadingPage,
-  Dashboard,
-} from "./pages";
+import { Login, NotFoundPage, LoadingPage, Dashboard } from "./pages";
 import { Authentificate } from "./security/components";
 import { Alert } from "./ui";
 
@@ -37,11 +32,14 @@ function App() {
         <Routes>
           <Route path="/" element={<Navigate to="/login" />} />
           <Route index path="/login" element={<Login />} />
-          <Route path="/dashboard/*" element={
-            <Authentificate>
-              <Dashboard />
-            </Authentificate>
-          } />
+          <Route
+            path="/dashboard/*"
+            element={
+              <Authentificate>
+                <Dashboard />
+              </Authentificate>
+            }
+          />
           <Route path="/*" element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>

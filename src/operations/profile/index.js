@@ -1,1 +1,1 @@
-export { ProfileShow } from "./ProfileShow"
+export { ProfileShow } from "./ProfileShow";

@@ -43,11 +43,7 @@ export function CreateFormBody() {
         <Question key={uuid()} questionIndex={index} />
       ))}
       <div className="flex w-full justify-end gap-5 mb-5 items-center">
-        <Button
-          size="sm"
-          variant="outlined"
-          onClick={createNewQuestion}
-        >
+        <Button size="sm" variant="outlined" onClick={createNewQuestion}>
           Add question
         </Button>
         <SaveButton />
