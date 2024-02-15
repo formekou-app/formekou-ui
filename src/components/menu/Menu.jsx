@@ -1,5 +1,5 @@
 import { Search as SearchIcon } from "@mui/icons-material";
-import { ViewMenu } from "./components/ViewMenu";
+import { ListMenu, ListMenuItem } from "./components";
 
 //TODO: handle search here
 export function Menu() {
@@ -16,7 +16,10 @@ export function Menu() {
           placeholder="Search Form"
         />
       </div>
-      <ViewMenu label="PRIVATE">hello</ViewMenu>
+      <ListMenu label="WORKSPACE">
+        <ListMenuItem name="Study" value={55}/>
+        <ListMenuItem name="Work" value={5} style={{backgroundColor: "white"}}/>
+      </ListMenu>
     </div>
   );
 }
