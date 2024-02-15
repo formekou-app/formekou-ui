@@ -119,7 +119,7 @@ export const useCreateFormStore = createWithEqualityFn((set) => {
     config: {
       title: "Untitled Form",
       description: "",
-      color: "#537ac9",
+      color: "#666769",
       open: new Date().toISOString(),
       close: "",
       isPrivate: false,

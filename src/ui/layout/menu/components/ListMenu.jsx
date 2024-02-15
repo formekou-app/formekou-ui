@@ -1,7 +1,7 @@
 import { useState } from "react";
-import PropTypes from "prop-types";
 import { Typography, Collapse, IconButton } from "@material-tailwind/react";
 import { Add, ExpandLess, ExpandMore } from "@mui/icons-material";
+import PropTypes from "prop-types";
 
 export function ListMenu({ label, children }) {
   const [showMenuContent, setShowMenuContent] = useState(true);
@@ -42,5 +42,5 @@ export function ListMenu({ label, children }) {
 
 ListMenu.propTypes = {
   label: PropTypes.string,
-  children: PropTypes.object
+  children: PropTypes.any
 };

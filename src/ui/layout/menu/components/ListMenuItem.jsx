@@ -1,10 +1,10 @@
-import { Typography } from "@material-tailwind/react"
 import { useLocation } from "react-router-dom";
 import PropTypes from "prop-types"
+import { Typography } from "@material-tailwind/react"
 
 export function ListMenuItem({name, value, style}){
   const location = useLocation();
-
+  
   const isActive = location.pathname.includes(name)
 
   return(

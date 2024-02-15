@@ -1,20 +1,17 @@
 import { useEffect, useState } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import {
   Login,
-  Profile,
   NotFoundPage,
-  CreateForm,
   LoadingPage,
-  Home,
+  Dashboard,
 } from "./pages";
-import { Authentificate } from "./security/componens";
-import { Alert } from "./components";
+import { Authentificate } from "./security/components";
+import { Alert } from "./ui";
 
 import { useAuthStore } from "./security/stores";
-import { authProvider } from "./providers";
-
 import authFirebase from "./security/authFirebase";
+import { authProvider } from "./providers";
 
 function App() {
   const setUser = useAuthStore((state) => state.setUser);
@@ -38,18 +35,14 @@ function App() {
     <div className="w-full">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Login />} />
-          <Route
-            path="/profile"
-            element={
-              <Authentificate>
-                <Profile />
-              </Authentificate>
-            }
-          />
+          <Route path="/" element={<Navigate to="/login" />} />
+          <Route index path="/login" element={<Login />} />
+          <Route path="/dashboard/*" element={
+            <Authentificate>
+              <Dashboard />
+            </Authentificate>
+          } />
           <Route path="/*" element={<NotFoundPage />} />
-          <Route path="/forms/create" element={<CreateForm />} />
-          <Route path="/home" element={<Home />} />
         </Routes>
       </BrowserRouter>
       <Alert />

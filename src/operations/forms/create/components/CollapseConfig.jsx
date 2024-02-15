@@ -12,7 +12,7 @@ export function CollapseConfig({ title, children }) {
         className="mt-1 gap-3 items-center cursor-pointer flex justify-end"
         onClick={() => setShowConfig((prev) => !prev)}
       >
-        <h3 className="text-gray-800">{title}</h3>
+        <h3 className="text-gray-800 text-[14px]">{title}</h3>
         {showConfig ? <ExpandLess /> : <ExpandMore />}
       </div>
       <Collapse open={showConfig}>
