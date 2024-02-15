@@ -1,5 +1,5 @@
 import { Configuration } from "../gen/client";
-import authFirebase from "./authFirebase";
+import authFirebase from "../security/authFirebase";
 
 export function getCachedConfiguration() {
   const configuration = new Configuration();
