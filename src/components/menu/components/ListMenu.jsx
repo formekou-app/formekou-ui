@@ -1,10 +1,10 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import { Typography, Collapse } from "@material-tailwind/react";
+import { Typography, Collapse, IconButton } from "@material-tailwind/react";
 import { Add, ExpandLess, ExpandMore } from "@mui/icons-material";
 
 export function ListMenu({ label, children }) {
-  const [showMenuContent, setShowMenuContent] = useState(false);
+  const [showMenuContent, setShowMenuContent] = useState(true);
 
   return (
     <div
@@ -25,12 +25,14 @@ export function ListMenu({ label, children }) {
             {label}
           </Typography>
         </div>
-        <Add className="py-[1px] bg-gray-300 rounded-[5px]" />
+        <IconButton variant="text" size="sm">
+          <Add className="text-bgray" />
+        </IconButton>
       </div>
       <Collapse
         open={showMenuContent}
         className="pt-3"
-        
+
       >
         {children}
       </Collapse>
