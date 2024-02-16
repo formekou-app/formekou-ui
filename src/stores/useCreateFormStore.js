@@ -2,6 +2,16 @@ import { createWithEqualityFn } from "zustand/traditional";
 import { shallow } from "zustand/shallow";
 import { v4 as uuid } from "uuid";
 
+export const DEFAULT_FORM_VALUE = {
+  title: "Untitled Form",
+  description: "",
+  color: "#666769",
+  openedAt: new Date().toISOString(),
+  closedAt: "",
+  isPrivate: false,
+  allowMultipleChoice: false,
+}
+
 export const useCreateFormStore = createWithEqualityFn((set) => {
   const pushUndoStack = (state) =>
     set((prevState) => ({
@@ -115,22 +125,32 @@ export const useCreateFormStore = createWithEqualityFn((set) => {
     }
   };
 
+  const reset = () => {
+    set((state) => ({
+      ...state,
+      config: DEFAULT_FORM_VALUE,
+      questions: [],
+      undoStack: [],
+      redoStack: []
+    }));
+  }
+  const setConfig = (config) => set((state) => ({ ...state, config }));
+  const setQuestions = (questions) => set((state) => ({ ...state, questions }));
+  const setAll = (form) => set((state) => ({ ...state, ...form }))
+
   return {
-    config: {
-      title: "Untitled Form",
-      description: "",
-      color: "#666769",
-      open: new Date().toISOString(),
-      close: "",
-      isPrivate: false,
-    },
+    config: DEFAULT_FORM_VALUE,
     questions: [],
     undoStack: [],
     redoStack: [],
+    setConfig,
+    setQuestions,
     updateConfig,
     updateQuestion,
     getQuestion,
     addQuestion,
+    setAll,
+    reset,
     duplicateQuestion,
     deleteQuestion,
     updateQuestionOption,

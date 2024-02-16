@@ -1,2 +1,2 @@
-export { FormCreate } from "./create/FormCreate";
+export { FormEdit } from "./create/FormEdit";
 export { FormList } from "./FormList";

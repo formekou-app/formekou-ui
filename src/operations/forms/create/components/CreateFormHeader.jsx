@@ -34,7 +34,7 @@ export function CreateFormHeader() {
         variant="static"
         type="text"
         placeholder="Title"
-        className="form-input text-[16px]"
+        className="form-input font-bold text-[16px]"
         required={true}
         value={config.title}
         onChange={updateConfigByName}

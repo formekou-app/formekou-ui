@@ -1,3 +1,5 @@
+import { Button } from "@material-tailwind/react";
+import { ArrowBack } from "@mui/icons-material";
 import PropTypes from "prop-types";
 
 import { Menu } from "./menu/Menu";
@@ -20,5 +22,5 @@ export function Layout({ children }) {
 }
 
 Layout.propTypes = {
-  children: PropTypes.object,
+  children: PropTypes.any,
 };
