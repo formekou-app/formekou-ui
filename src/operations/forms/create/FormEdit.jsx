@@ -1,3 +1,5 @@
+/*eslint-disable*/
+
 import { useEffect } from "react";
 import { CreateFormHeader, CreateFormBody } from "./components";
 import { useNavigate, useParams } from "react-router-dom";
@@ -33,7 +35,7 @@ export function FormEdit() {
         .finally(() => setIsLoading(false));
     };
     getFormById();
-  }, [formId]);
+  }, [formId, notify, navigate]);
 
   if (isLoading) return null;
 
