@@ -41,6 +41,8 @@ export const Question = React.memo(({ questionIndex }) => {
     addQuestionOption(question.id, {
       id: uuid(),
       value: "My Option",
+      isCorrect: false,
+      points: 1
     });
   };
 
@@ -49,10 +51,11 @@ export const Question = React.memo(({ questionIndex }) => {
       <div className="flex gap-5 my-5">
         <div style={{ width: "calc(100% - 250px)" }}>
           <Input
+            required
             type="text"
-            name="label"
-            label="Question label"
-            value={question.label}
+            name="title"
+            label="Question title"
+            value={question.title}
             onChange={updateQuestionByName}
           />
         </div>

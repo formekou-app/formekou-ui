@@ -1,17 +1,50 @@
+import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "@material-tailwind/react";
 import { v4 as uuid } from "uuid";
+
 import { Question } from "./Question";
-import { useCreateFormStore } from "../../../../stores";
+import { useCreateFormStore, useDashboardState } from "../../../../stores";
+import { formsProvider } from "../../../../providers/formsProvider";
+import { useNotify } from "../../../../hooks";
 
 // to avoid multiple rendering
 function SaveButton() {
-  const formToCreate = useCreateFormStore((state) => ({
+  const { formId } = useParams();
+  const navigate = useNavigate();
+  const notify = useNotify();
+  const { setIsLoading } = useDashboardState();
+  const { questions, config } = useCreateFormStore((state) => ({
     config: state.config,
     questions: state.questions,
   }));
 
-  const saveForm = () => {
-    console.log(formToCreate);
+  const saveForm = async () => {
+    if (questions.length <= 0) {
+      notify("Must add at least one question", { color: "red" });
+      return;
+    }
+
+    setIsLoading(true);
+    const updateQuestions = async () => {
+
+      formsProvider.setFormQuestions(formId, questions)
+        .then(() => {
+          navigate("/dashboard");
+        })
+        .catch(() => {
+          notify("Oops, cannot update the forms, please try again", { color: "red" });
+        })
+        .finally(() => {
+          setIsLoading(false);
+        })
+    }
+
+    formsProvider.crupdateForm(config)
+      .then(async () => updateQuestions())
+      .catch(() => {
+        notify("Oops, cannot update the forms, please try again", { color: "red" });
+        setIsLoading(false);
+      })
   };
 
   return (
@@ -30,7 +63,7 @@ export function CreateFormBody() {
   const createNewQuestion = () => {
     addQuestion({
       id: uuid(),
-      label: "What is your Question label ?",
+      title: "What is your Question label ?",
       type: "TEXT",
       isRequired: false,
       options: [],

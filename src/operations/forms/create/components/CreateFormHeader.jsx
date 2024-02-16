@@ -52,7 +52,7 @@ export function CreateFormHeader() {
         <Switch
           label="Private"
           className="text-bgray text-[14px]"
-          value={config.isPrivate}
+          checked={config.isPrivate}
           onChange={({ target }) => updateConfig("isPrivate", target.checked)}
         />
         <Input

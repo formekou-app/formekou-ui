@@ -9,5 +9,9 @@ export const formsProvider = {
   getFormById: async (id) => {
     return formsApi().getFormById(id)
       .then(response => response.data);
+  },
+  setFormQuestions: async (formId, questions) => {
+    return formsApi().crupdateFormQuestions(formId, questions)
+      .then(response => response.data);
   }
 }

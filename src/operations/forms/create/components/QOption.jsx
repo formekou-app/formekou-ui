@@ -15,8 +15,9 @@ export function QOption({ questionId, option }) {
     <div className="flex items-center gap-5">
       <div className="mb-3 w-[250px]">
         <Input
+          required
           label="Option"
-          values={option.value}
+          value={option.value}
           onChange={({ target }) =>
             updateQuestionOption(questionId, option.id, target.value)
           }
