@@ -7,33 +7,35 @@ import { useNotify } from "../../../hooks";
 
 export function FormEdit() {
   const params = useParams();
-  const notify = useNotify(state => state.setNotify);
+  const notify = useNotify((state) => state.setNotify);
   const navigate = useNavigate();
-  const { isLoading, setIsLoading } = useDashboardState()
-  const setAll = useCreateFormStore(state => state.setAll);
+  const { isLoading, setIsLoading } = useDashboardState();
+  const setAll = useCreateFormStore((state) => state.setAll);
   const formId = params.formId;
 
   useEffect(() => {
     setIsLoading(true);
     const getFormById = async () => {
-      formsProvider.getFormById(formId)
+      formsProvider
+        .getFormById(formId)
         .then((form) => {
-          const config = {...form};
+          const config = { ...form };
           delete config.questions;
-          const newStore  = {config, questions: form.questions || []};
+          const newStore = { config, questions: form.questions || [] };
           setAll(newStore);
         })
         .catch(() => {
-          notify("Oops, form not found or something went wrong", { color: "red" });
+          notify("Oops, form not found or something went wrong", {
+            color: "red",
+          });
           navigate("/dashboard");
         })
         .finally(() => setIsLoading(false));
-    }
+    };
     getFormById();
   }, [formId]);
 
-  if (isLoading)
-    return null;
+  if (isLoading) return null;
 
   return (
     <div className="w-full mx-auto max-w-[900px]">

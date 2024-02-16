@@ -26,25 +26,30 @@ function SaveButton() {
 
     setIsLoading(true);
     const updateQuestions = async () => {
-
-      formsProvider.setFormQuestions(formId, questions)
+      formsProvider
+        .setFormQuestions(formId, questions)
         .then(() => {
           navigate("/dashboard");
         })
         .catch(() => {
-          notify("Oops, cannot update the forms, please try again", { color: "red" });
+          notify("Oops, cannot update the forms, please try again", {
+            color: "red",
+          });
         })
         .finally(() => {
           setIsLoading(false);
-        })
-    }
+        });
+    };
 
-    formsProvider.crupdateForm(config)
+    formsProvider
+      .crupdateForm(config)
       .then(async () => updateQuestions())
       .catch(() => {
-        notify("Oops, cannot update the forms, please try again", { color: "red" });
+        notify("Oops, cannot update the forms, please try again", {
+          color: "red",
+        });
         setIsLoading(false);
-      })
+      });
   };
 
   return (

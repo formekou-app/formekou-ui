@@ -2,8 +2,14 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { v4 as uuid } from "uuid";
-import { Button, Input, Dialog, Typography, IconButton } from "@material-tailwind/react";
-import { Add as AddIcon, Close as CloseIcon } from "@mui/icons-material"
+import {
+  Button,
+  Input,
+  Dialog,
+  Typography,
+  IconButton,
+} from "@material-tailwind/react";
+import { Add as AddIcon, Close as CloseIcon } from "@mui/icons-material";
 
 import { DEFAULT_FORM_VALUE } from "../../../stores/useCreateFormStore";
 import { useNotify } from "../../../hooks";
@@ -29,16 +35,20 @@ export function FormCreateModal() {
       createdAt: new Date().toISOString(),
     };
 
-    formsProvider.crupdateForm(newForm)
+    formsProvider
+      .crupdateForm(newForm)
       .then(() => navigate(`/dashboard/forms/${formId}/edit`))
-      .catch(() => notify("Oops, your form was not created,  please try again !", { color: "red" }))
+      .catch(() =>
+        notify("Oops, your form was not created,  please try again !", {
+          color: "red",
+        })
+      )
       .finally(() => setIsLoading(false));
-  }
+  };
 
   const closeModal = () => setShowCreate(false);
 
-  if (isLoading)
-    return null;
+  if (isLoading) return null;
 
   return (
     <>
@@ -82,5 +92,5 @@ export function FormCreateModal() {
         </form>
       </Dialog>
     </>
-  )
+  );
 }

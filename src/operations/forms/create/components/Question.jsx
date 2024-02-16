@@ -42,7 +42,7 @@ export const Question = React.memo(({ questionIndex }) => {
       id: uuid(),
       value: "My Option",
       isCorrect: false,
-      points: 1
+      points: 1,
     });
   };
 

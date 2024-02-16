@@ -10,7 +10,7 @@ export const DEFAULT_FORM_VALUE = {
   closedAt: "",
   isPrivate: false,
   allowMultipleChoice: false,
-}
+};
 
 export const useCreateFormStore = createWithEqualityFn((set) => {
   const pushUndoStack = (state) =>
@@ -131,12 +131,12 @@ export const useCreateFormStore = createWithEqualityFn((set) => {
       config: DEFAULT_FORM_VALUE,
       questions: [],
       undoStack: [],
-      redoStack: []
+      redoStack: [],
     }));
-  }
+  };
   const setConfig = (config) => set((state) => ({ ...state, config }));
   const setQuestions = (questions) => set((state) => ({ ...state, questions }));
-  const setAll = (form) => set((state) => ({ ...state, ...form }))
+  const setAll = (form) => set((state) => ({ ...state, ...form }));
 
   return {
     config: DEFAULT_FORM_VALUE,
