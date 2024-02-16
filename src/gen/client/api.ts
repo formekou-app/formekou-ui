@@ -83,6 +83,12 @@ export interface CreateForm {
   closedAt?: string;
   /**
    *
+   * @type {string}
+   * @memberof CreateForm
+   */
+  createdAt?: string;
+  /**
+   *
    * @type {boolean}
    * @memberof CreateForm
    */
@@ -161,6 +167,12 @@ export interface Form {
    * @memberof Form
    */
   closedAt?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof Form
+   */
+  createdAt?: string;
   /**
    *
    * @type {boolean}
