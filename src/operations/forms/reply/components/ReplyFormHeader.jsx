@@ -21,7 +21,7 @@ export function ReplyFormHeader() {
       className="border-t-[10px] form-block"
       style={{ borderTopColor: config.color }}
     >
-      <h1 className="form-input font-bold text-[16px]">Form Header</h1>
+      <h1 className="form-input font-bold text-[16px] py-2">Form Header</h1>
       <p className="form-input max-h-[50px] focus:border-none terxt-[14px]">
         Form Description
       </p>
