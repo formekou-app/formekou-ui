@@ -35,7 +35,7 @@ export function FormEdit() {
         .finally(() => setIsLoading(false));
     };
     getFormById();
-  }, [formId, notify, navigate]);
+  }, [formId]);
 
   if (isLoading) return null;
 
