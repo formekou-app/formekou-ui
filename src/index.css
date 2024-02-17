@@ -4,6 +4,14 @@
 @tailwind utilities;
 
 @layer components {
+  .list-view-header {
+    @apply text-[14px] font-normal text-bgray text-start;
+  }
+
+  .list-view-item {
+    @apply text-[14px] my-3 font-normal text-bgray text-start bg-white rounded w-full flex items-center py-2;
+  }
+
   .section {
     @apply min-h-screen bg-[#f7f7fa] w-full;
   }
@@ -24,10 +32,10 @@
   }
 
   .form-block {
-    @apply w-full rounded-[15px] shadow-gray-50 bg-white p-5 mb-7;
+    @apply w-full rounded-[5px] shadow-gray-50 bg-white p-5 mb-7;
   }
 
   .form-input {
-    @apply placeholder:text-gray-700;
+    @apply placeholder:text-gray-500;
   }
 }

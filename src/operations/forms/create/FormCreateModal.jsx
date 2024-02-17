@@ -15,6 +15,7 @@ import { DEFAULT_FORM_VALUE } from "../../../stores/useCreateFormStore";
 import { useNotify } from "../../../hooks";
 import { formsProvider } from "../../../providers/formsProvider";
 import { useDashboardState } from "../../../stores";
+import { dumbLoading } from "../../utils";
 
 export function FormCreateModal() {
   const [showCreate, setShowCreate] = useState(false);
@@ -33,6 +34,7 @@ export function FormCreateModal() {
       id: formId,
       title: title,
       createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
     };
 
     formsProvider
@@ -43,7 +45,7 @@ export function FormCreateModal() {
           color: "red",
         })
       )
-      .finally(() => setIsLoading(false));
+      .finally(() => dumbLoading(() => setIsLoading(false)));
   };
 
   const closeModal = () => setShowCreate(false);
