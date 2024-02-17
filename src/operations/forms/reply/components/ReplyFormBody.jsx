@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Button } from "@material-tailwind/react";
 
 const camelize = (str) => {
@@ -9,7 +9,7 @@ const camelize = (str) => {
 };
 
 export function ReplyFormBody() {
-  const [formContent, setFormContent] = useState([
+  const [formContent] = useState([
     {
       id: 0,
       name: "0",
@@ -49,7 +49,7 @@ export function ReplyFormBody() {
 
     //loop through our questions & get values based on the element name
     const formTargets = e.target;
-    let data = [];
+    const data = [];
     formContent.map((content) => {
       const element = camelize(content.label);
       if (content.question_type === "checkbox") {
@@ -73,21 +73,12 @@ export function ReplyFormBody() {
   };
 
   return (
-    <form
-      onSubmit={submitForm}
-      className="reply-block"
-    >
+    <form onSubmit={submitForm} className="reply-block">
       {formContent.map((field) => (
-        <div
-          key={field.id}
-          className="reply-field"
-        >
+        <div key={field.id} className="reply-field">
           <div className="reply-field-item">
-            <div
-              key={field.name}
-              className="reply-text text-black-700"
-            >
-              <label onClick={() => setOnEdit(true)}>{field.label}</label>
+            <div key={field.name} className="reply-text text-black-700">
+              <label>{field.label}</label>
             </div>
           </div>
 

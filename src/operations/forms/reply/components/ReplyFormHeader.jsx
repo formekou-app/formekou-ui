@@ -12,9 +12,8 @@ function NumberOfQuestion() {
 }
 
 export function ReplyFormHeader() {
-  const { config, updateConfig } = useCreateFormStore((state) => ({
+  const { config } = useCreateFormStore((state) => ({
     config: state.config,
-    updateConfig: state.updateConfig,
   }));
 
   return (
