@@ -7,6 +7,8 @@ export const DEFAULT_FORM_VALUE = {
   description: "",
   color: "#666769",
   openedAt: new Date().toISOString(),
+  createdAt: new Date().toISOString(),
+  updatedAt: new Date().toISOString(),
   closedAt: "",
   isPrivate: false,
   allowMultipleChoice: false,

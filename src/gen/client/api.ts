@@ -89,6 +89,12 @@ export interface CreateForm {
   createdAt?: string;
   /**
    *
+   * @type {string}
+   * @memberof CreateForm
+   */
+  updatedAt?: string;
+  /**
+   *
    * @type {boolean}
    * @memberof CreateForm
    */
@@ -173,6 +179,12 @@ export interface Form {
    * @memberof Form
    */
   createdAt?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof Form
+   */
+  updatedAt?: string;
   /**
    *
    * @type {boolean}
@@ -442,6 +454,56 @@ export const FormsApiAxiosParamCreator = function (
     },
     /**
      *
+     * @summary Delete one form using id
+     * @param {string} formId Id the form
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    deleteFormById: async (
+      formId: string,
+      options: RawAxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'formId' is not null or undefined
+      assertParamExists("deleteFormById", "formId", formId);
+      const localVarPath = `/forms/{formId}`.replace(
+        `{${"formId"}}`,
+        encodeURIComponent(String(formId))
+      );
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = {
+        method: "DELETE",
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      // authentication BearerAuth required
+      // http bearer authentication required
+      await setBearerAuthToObject(localVarHeaderParameter, configuration);
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     *
      * @summary Get one form using id
      * @param {string} formId Id the form
      * @param {*} [options] Override http request option.
@@ -493,11 +555,13 @@ export const FormsApiAxiosParamCreator = function (
     /**
      *
      * @summary Get own forms
+     * @param {string} [sort]
      * @param {Form} [form]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     getOwnForms: async (
+      sort?: string,
       form?: Form,
       options: RawAxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
@@ -520,6 +584,10 @@ export const FormsApiAxiosParamCreator = function (
       // authentication BearerAuth required
       // http bearer authentication required
       await setBearerAuthToObject(localVarHeaderParameter, configuration);
+
+      if (sort !== undefined) {
+        localVarQueryParameter["sort"] = sort;
+      }
 
       localVarHeaderParameter["Content-Type"] = "application/json";
 
@@ -618,6 +686,36 @@ export const FormsApiFp = function (configuration?: Configuration) {
     },
     /**
      *
+     * @summary Delete one form using id
+     * @param {string} formId Id the form
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async deleteFormById(
+      formId: string,
+      options?: RawAxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Form>
+    > {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.deleteFormById(
+        formId,
+        options
+      );
+      const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+      const localVarOperationServerBasePath =
+        operationServerMap["FormsApi.deleteFormById"]?.[
+          localVarOperationServerIndex
+        ]?.url;
+      return (axios, basePath) =>
+        createRequestFunction(
+          localVarAxiosArgs,
+          globalAxios,
+          BASE_PATH,
+          configuration
+        )(axios, localVarOperationServerBasePath || basePath);
+    },
+    /**
+     *
      * @summary Get one form using id
      * @param {string} formId Id the form
      * @param {*} [options] Override http request option.
@@ -649,17 +747,20 @@ export const FormsApiFp = function (configuration?: Configuration) {
     /**
      *
      * @summary Get own forms
+     * @param {string} [sort]
      * @param {Form} [form]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     async getOwnForms(
+      sort?: string,
       form?: Form,
       options?: RawAxiosRequestConfig
     ): Promise<
       (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Form>
     > {
       const localVarAxiosArgs = await localVarAxiosParamCreator.getOwnForms(
+        sort,
         form,
         options
       );
@@ -721,6 +822,18 @@ export const FormsApiFactory = function (
     },
     /**
      *
+     * @summary Delete one form using id
+     * @param {string} formId Id the form
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    deleteFormById(formId: string, options?: any): AxiosPromise<Form> {
+      return localVarFp
+        .deleteFormById(formId, options)
+        .then((request) => request(axios, basePath));
+    },
+    /**
+     *
      * @summary Get one form using id
      * @param {string} formId Id the form
      * @param {*} [options] Override http request option.
@@ -734,13 +847,14 @@ export const FormsApiFactory = function (
     /**
      *
      * @summary Get own forms
+     * @param {string} [sort]
      * @param {Form} [form]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    getOwnForms(form?: Form, options?: any): AxiosPromise<Form> {
+    getOwnForms(sort?: string, form?: Form, options?: any): AxiosPromise<Form> {
       return localVarFp
-        .getOwnForms(form, options)
+        .getOwnForms(sort, form, options)
         .then((request) => request(axios, basePath));
     },
   };
@@ -791,6 +905,20 @@ export class FormsApi extends BaseAPI {
 
   /**
    *
+   * @summary Delete one form using id
+   * @param {string} formId Id the form
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof FormsApi
+   */
+  public deleteFormById(formId: string, options?: RawAxiosRequestConfig) {
+    return FormsApiFp(this.configuration)
+      .deleteFormById(formId, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   *
    * @summary Get one form using id
    * @param {string} formId Id the form
    * @param {*} [options] Override http request option.
@@ -806,14 +934,19 @@ export class FormsApi extends BaseAPI {
   /**
    *
    * @summary Get own forms
+   * @param {string} [sort]
    * @param {Form} [form]
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof FormsApi
    */
-  public getOwnForms(form?: Form, options?: RawAxiosRequestConfig) {
+  public getOwnForms(
+    sort?: string,
+    form?: Form,
+    options?: RawAxiosRequestConfig
+  ) {
     return FormsApiFp(this.configuration)
-      .getOwnForms(form, options)
+      .getOwnForms(sort, form, options)
       .then((request) => request(this.axios, this.basePath));
   }
 }
