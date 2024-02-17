@@ -13,7 +13,7 @@ export function Alert() {
       }}
       variant={config.variant}
       color={config.color}
-      className="fixed top-5 right-10 min-w-[350px] w-fit"
+      className="fixed z-[9999] top-5 right-10 min-w-[350px] w-fit"
     >
       {message}
     </_Alert>

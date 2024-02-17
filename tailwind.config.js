@@ -7,7 +7,7 @@ export default withMT({
     extend: {
       colors: {
         "main": "#09389B",
-        "bgray": "#666360",
+        "bgray": "#434543",
         "main-black": "#3b3a39",
       },
     },

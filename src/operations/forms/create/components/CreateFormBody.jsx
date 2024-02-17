@@ -6,6 +6,7 @@ import { Question } from "./Question";
 import { useCreateFormStore, useDashboardState } from "../../../../stores";
 import { formsProvider } from "../../../../providers/formsProvider";
 import { useNotify } from "../../../../hooks";
+import { dumbLoading } from "../../../utils";
 
 // to avoid multiple rendering
 function SaveButton() {
@@ -19,13 +20,13 @@ function SaveButton() {
   }));
 
   const saveForm = async () => {
-    if (questions.length <= 0) {
-      notify("Must add at least one question", { color: "red" });
-      return;
-    }
-
     setIsLoading(true);
     const updateQuestions = async () => {
+      if (questions.length <= 0) {
+        dumbLoading(() => setIsLoading(false));
+        navigate("/dashboard");
+      }
+
       formsProvider
         .setFormQuestions(formId, questions)
         .then(() => {
@@ -37,18 +38,18 @@ function SaveButton() {
           });
         })
         .finally(() => {
-          setIsLoading(false);
+          dumbLoading(() => setIsLoading(false));
         });
     };
 
     formsProvider
-      .crupdateForm(config)
+      .crupdateForm({ ...config, updatedAt: new Date().toISOString() })
       .then(async () => updateQuestions())
       .catch(() => {
         notify("Oops, cannot update the forms, please try again", {
           color: "red",
         });
-        setIsLoading(false);
+        dumbLoading(() => setIsLoading(false));
       });
   };
 

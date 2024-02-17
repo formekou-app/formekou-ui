@@ -6,6 +6,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { formsProvider } from "../../../providers/formsProvider";
 import { useCreateFormStore, useDashboardState } from "../../../stores";
 import { useNotify } from "../../../hooks";
+import { dumbLoading } from "../../utils";
 
 export function FormEdit() {
   const params = useParams();
@@ -32,7 +33,7 @@ export function FormEdit() {
           });
           navigate("/dashboard");
         })
-        .finally(() => setIsLoading(false));
+        .finally(() => dumbLoading(()=>setIsLoading(false)));
     };
     getFormById();
   }, [formId]);

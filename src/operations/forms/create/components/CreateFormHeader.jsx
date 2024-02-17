@@ -51,6 +51,7 @@ export function CreateFormHeader() {
       <CollapseConfig title="More configuration">
         <Switch
           label="Private"
+          name="isPrivate"
           className="text-bgray text-[14px]"
           checked={config.isPrivate}
           onChange={({ target }) => updateConfig("isPrivate", target.checked)}

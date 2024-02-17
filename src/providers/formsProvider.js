@@ -16,4 +16,14 @@ export const formsProvider = {
       .crupdateFormQuestions(formId, questions)
       .then((response) => response.data);
   },
+  getForms: async (sort) => {
+    return formsApi()
+      .getOwnForms(sort)
+      .then((response) => response.data);
+  },
+  deleteFormById: async (formId) => {
+    return formsApi()
+      .deleteFormById(formId)
+      .then(response => response.data);
+  }
 };
