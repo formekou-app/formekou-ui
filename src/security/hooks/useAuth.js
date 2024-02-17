@@ -31,7 +31,7 @@ export function useAuth() {
         lastName: provider.lastName,
       })
     );
-    navigate("/profile");
+    navigate("/dashboard");
   };
 
   return {
