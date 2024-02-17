@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Login, Profile, NotFoundPage, CreateForm, LoadingPage } from "./pages";
-import { Authentificate } from "./security/componens";
-import { Alert } from "./components";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { Login, NotFoundPage, LoadingPage, Dashboard } from "./pages";
+import { Authentificate } from "./security/components";
+import { Alert } from "./ui";
 
-import { getWhoAmi } from "./security/authProvider";
-import { authFirebase } from "./security/authFirebase";
 import { useAuthStore } from "./security/stores";
+import authFirebase from "./security/authFirebase";
+import { authProvider } from "./providers";
 
 function App() {
   const setUser = useAuthStore((state) => state.setUser);
@@ -14,7 +14,8 @@ function App() {
 
   useEffect(() => {
     const makeWhoAmiCall = async () => {
-      getWhoAmi()
+      authProvider
+        .getWhoAmi()
         .then((userConnected) => setUser(userConnected))
         .catch(() => authFirebase.signOut())
         .finally(() => setIsTestingWhoAmi(false));
@@ -29,17 +30,17 @@ function App() {
     <div className="w-full">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Login />} />
+          <Route path="/" element={<Navigate to="/login" />} />
+          <Route index path="/login" element={<Login />} />
           <Route
-            path="/profile"
+            path="/dashboard/*"
             element={
               <Authentificate>
-                <Profile />
+                <Dashboard />
               </Authentificate>
             }
           />
           <Route path="/*" element={<NotFoundPage />} />
-          <Route path="/forms/create" element={<CreateForm />} />
         </Routes>
       </BrowserRouter>
       <Alert />

@@ -42,10 +42,12 @@ const signOut = async () => {
   localStorage.removeItem(AUTH_ID_TOKEN);
 };
 
-export const authFirebase = {
+const authFirebase = {
   signIn,
   signOut,
   signup,
   cacheCredential,
   getCachedCredential,
 };
+
+export default authFirebase;

@@ -2,12 +2,40 @@ import { createWithEqualityFn } from "zustand/traditional";
 import { shallow } from "zustand/shallow";
 import { v4 as uuid } from "uuid";
 
+export const DEFAULT_FORM_VALUE = {
+  title: "Untitled Form",
+  description: "",
+  color: "#666769",
+  openedAt: new Date().toISOString(),
+  closedAt: "",
+  isPrivate: false,
+  allowMultipleChoice: false,
+};
+
 export const useCreateFormStore = createWithEqualityFn((set) => {
-  const updateConfig = (source, value) =>
+  const pushUndoStack = (state) =>
+    set((prevState) => ({
+      ...prevState,
+      undoStack: [...prevState.undoStack, state],
+    }));
+
+  const pushRedoStack = (state) =>
+    set((prevState) => ({
+      ...prevState,
+      redoStack: [...prevState.redoStack, state],
+    }));
+
+  const updateConfig = (source, value) => {
+    const prevConfig = useCreateFormStore.getState().config;
+
+    pushUndoStack(prevConfig);
+
     set((state) => ({
       ...state,
       config: { ...state.config, [source]: value },
+      redoStack: [],
     }));
+  };
 
   const updateQuestion = (questionId, source, value) =>
     set((state) => ({
@@ -71,24 +99,64 @@ export const useCreateFormStore = createWithEqualityFn((set) => {
       .updateQuestion(question.id, "options", [...question.options, option]);
   };
 
+  const undo = () => {
+    const { undoStack } = useCreateFormStore.getState();
+    if (undoStack.length > 0) {
+      const prevState = undoStack.pop();
+      pushRedoStack(useCreateFormStore.getState().config);
+      set((state) => ({
+        ...state,
+        config: prevState,
+        undoStack: undoStack,
+      }));
+    }
+  };
+
+  const redo = () => {
+    const { redoStack } = useCreateFormStore.getState();
+    if (redoStack.length > 0) {
+      const nextState = redoStack.pop();
+      pushUndoStack(useCreateFormStore.getState().config);
+      set((state) => ({
+        ...state,
+        config: nextState,
+        redoStack: redoStack,
+      }));
+    }
+  };
+
+  const reset = () => {
+    set((state) => ({
+      ...state,
+      config: DEFAULT_FORM_VALUE,
+      questions: [],
+      undoStack: [],
+      redoStack: [],
+    }));
+  };
+  const setConfig = (config) => set((state) => ({ ...state, config }));
+  const setQuestions = (questions) => set((state) => ({ ...state, questions }));
+  const setAll = (form) => set((state) => ({ ...state, ...form }));
+
   return {
-    config: {
-      title: "Untitled Form",
-      description: "",
-      color: "#537ac9",
-      open: new Date().toISOString(),
-      close: "",
-      isPrivate: false,
-    },
+    config: DEFAULT_FORM_VALUE,
     questions: [],
+    undoStack: [],
+    redoStack: [],
+    setConfig,
+    setQuestions,
     updateConfig,
     updateQuestion,
     getQuestion,
     addQuestion,
+    setAll,
+    reset,
     duplicateQuestion,
     deleteQuestion,
     updateQuestionOption,
     deleteQuestionOption,
     addQuestionOption,
+    undo,
+    redo,
   };
 }, shallow);
