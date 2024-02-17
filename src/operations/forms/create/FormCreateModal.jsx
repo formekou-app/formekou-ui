@@ -34,7 +34,7 @@ export function FormCreateModal() {
       id: formId,
       title: title,
       createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString()
+      updatedAt: new Date().toISOString(),
     };
 
     formsProvider

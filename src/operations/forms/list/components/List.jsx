@@ -8,8 +8,12 @@ import { formsProvider } from "../../../../providers";
 
 import { useNotify } from "../../../../hooks";
 import { dumbLoading } from "../../../utils";
-import emptyList from "../../../../assets/images/empy_list.png";
 import { FormCreateModal } from "../../create/FormCreateModal";
+
+import emptyList from "../../../../assets/images/empy_list.png";
+import Proptypes from "prop-types";
+
+/*eslint-disable*/
 
 export const LIST_CONTEXT = createContext();
 
@@ -18,11 +22,11 @@ function EmptyList() {
     <div className="w-ful h-[350px] min-h-[450px] flex items-center gap-5 justify-center flex-col">
       <img src={emptyList} className="w-[300px]" />
       <Typography className="text-[35px] text-bgray">
-        You don't have a form yet
+        {"You don't have a form yet"}
       </Typography>
       <FormCreateModal />
     </div>
-  )
+  );
 }
 
 export function List({ isGridView, sortType }) {
@@ -31,28 +35,34 @@ export function List({ isGridView, sortType }) {
   const notify = useNotify();
 
   const fetchForms = async () => {
-    formsProvider.getForms(sortType)
+    formsProvider
+      .getForms(sortType)
       .then((data) => setForms(data))
       .catch(() => {
         notify("Oops, cannot get your forms");
       })
       .finally(() => dumbLoading(() => setIsLoading(false)));
-  }
+  };
 
   useEffect(() => {
     setIsLoading(true);
     fetchForms();
-  }, [sortType])
+  }, [sortType]);
 
-  return (
-    isLoading ?
-      <div className="w-full h-full flex items-center justify-center flex-col">
-        <Spinner />
-      </div>
-      : forms.length === 0 ? <EmptyList /> : (
-        <LIST_CONTEXT.Provider value={{ fetchForms, setIsLoading }}>
-          {!isGridView ? <ListView forms={forms} /> : <GridView forms={forms} />}
-        </LIST_CONTEXT.Provider>
-      )
-  )
+  return isLoading ? (
+    <div className="w-full h-full flex items-center justify-center flex-col">
+      <Spinner />
+    </div>
+  ) : forms.length === 0 ? (
+    <EmptyList />
+  ) : (
+    <LIST_CONTEXT.Provider value={{ fetchForms, setIsLoading }}>
+      {!isGridView ? <ListView forms={forms} /> : <GridView forms={forms} />}
+    </LIST_CONTEXT.Provider>
+  );
 }
+
+List.propTypes = {
+  isGridView: Proptypes.bool,
+  sortType: Proptypes.string,
+};

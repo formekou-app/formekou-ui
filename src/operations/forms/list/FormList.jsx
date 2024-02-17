@@ -10,10 +10,11 @@ import {
 import { FormCreateModal } from "../create/FormCreateModal";
 import { List } from "./components";
 
+/*eslint-disable*/
 const SortType = {
   updatedAt: "updatedAt",
-  createdAt: "createdAt"
-}
+  createdAt: "createdAt",
+};
 
 function SelectSortType({ setSortType, value }) {
   return (
@@ -29,7 +30,7 @@ function SelectSortType({ setSortType, value }) {
         Last created
       </option>
     </select>
-  )
+  );
 }
 
 function ListViewButton({ isActive, icon, onClick, label }) {
@@ -39,7 +40,7 @@ function ListViewButton({ isActive, icon, onClick, label }) {
       className="px-3 flex items-center py-1 bg-gray-500 gap-1"
       style={{
         backgroundColor: isActive ? "#75726b" : "#d9d4d0",
-        color: isActive ? "white" : "black"
+        color: isActive ? "white" : "black",
       }}
       onClick={onClick}
     >
@@ -48,9 +49,8 @@ function ListViewButton({ isActive, icon, onClick, label }) {
         {label}
       </Typography>
     </button>
-  )
+  );
 }
-
 
 export function FormList() {
   const [isGridView, setIsGridView] = useState(false);

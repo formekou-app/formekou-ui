@@ -1,1 +1,1 @@
-export * from "./dumbLoading"
+export * from "./dumbLoading";

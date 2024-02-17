@@ -24,6 +24,6 @@ export const formsProvider = {
   deleteFormById: async (formId) => {
     return formsApi()
       .deleteFormById(formId)
-      .then(response => response.data);
-  }
+      .then((response) => response.data);
+  },
 };

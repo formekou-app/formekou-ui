@@ -33,7 +33,7 @@ export function FormEdit() {
           });
           navigate("/dashboard");
         })
-        .finally(() => dumbLoading(()=>setIsLoading(false)));
+        .finally(() => dumbLoading(() => setIsLoading(false)));
     };
     getFormById();
   }, [formId]);
