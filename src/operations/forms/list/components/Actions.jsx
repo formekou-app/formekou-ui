@@ -56,7 +56,15 @@ export function Actions({ formId }) {
         <Button
           size="sm"
           variant="text"
-          className="py-2 w-full block"
+          className="py-3 w-full block"
+          onClick={() => navigate(`/dashboard/forms/${formId}/answers`)}
+        >
+          All responses
+        </Button>
+        <Button
+          size="sm"
+          variant="text"
+          className="py-3 w-full block"
           onClick={copyLink}
         >
           CopyLink
@@ -64,7 +72,7 @@ export function Actions({ formId }) {
         <Button
           size="sm"
           variant="text"
-          className="py-2 w-full block"
+          className="py-3 w-full block"
           onClick={() => navigate(`/dashboard/forms/${formId}/edit`)}
         >
           Edit
@@ -73,7 +81,7 @@ export function Actions({ formId }) {
           size="sm"
           color="red"
           variant="text"
-          className="block w-full py-2"
+          className="block w-full py-3"
           onClick={doDelete}
         >
           Delete

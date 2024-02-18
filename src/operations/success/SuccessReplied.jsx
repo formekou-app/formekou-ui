@@ -43,6 +43,12 @@ export function SuccessReplied() {
             Make another response
           </Button>
         )}
+        <Button
+          variant="outlined"
+          onClick={() => navigate(`/dashboard/forms/${formId}/answers`)}
+        >
+          All responses
+        </Button>
         <Button onClick={() => navigate("/dashboard")}>Go to Dashboard</Button>
       </div>
     </div>

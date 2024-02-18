@@ -6,4 +6,9 @@ export const usersProvider = {
       .updateProfile(user)
       .then((response) => response.data);
   },
+  getUserById: async (userId) => {
+    return usersApi()
+      .getUserById(userId)
+      .then((response) => response.data);
+  },
 };
