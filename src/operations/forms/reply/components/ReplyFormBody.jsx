@@ -1,147 +1,122 @@
-import { useState } from "react";
-import { Button } from "@material-tailwind/react";
+import { createContext, useContext, useState } from "react";
+import { Button, Typography, Input, Checkbox, Radio, Textarea } from "@material-tailwind/react";
+import { v4 as uuid } from "uuid";
 
-const camelize = (str) => {
-  return str.replace(/(?:^\w|[A-Z]|\b\w|\s+)/g, function (match, index) {
-    if (+match === 0) return ""; // or if (/\s+/.test(match)) for white spaces
-    return index === 0 ? match.toLowerCase() : match.toUpperCase();
-  });
-};
+import { QuestionType } from "../../../../gen/client";
 
-export function ReplyFormBody() {
-  const [formContent] = useState([
-    {
-      id: 0,
-      name: "0",
-      label: "what is your name ?",
-      required: false,
-      question_type: "short_answer",
-      list: [],
-    },
-    {
-      id: 1,
-      name: "1",
-      label: "Describe yourself ?",
-      required: false,
-      question_type: "paragraph",
-      list: [],
-    },
-    {
-      id: 3,
-      name: "3",
-      label: "Select your hobbies",
-      required: false,
-      question_type: "checkbox",
-      list: ["Reading", "Gardening", "Cooking"],
-    },
-    {
-      id: 4,
-      name: "4",
-      label: "Select your preferred payment method",
-      required: false,
-      question_type: "radio",
-      list: ["Credit Card", "PayPal", "Bitcoin"],
-    },
-  ]);
+const FORM_ANSWER_CONTEXT = createContext();
 
-  const submitForm = (e) => {
-    e.preventDefault();
+function AnswerInput({ question }) {
+  const { updateAnswer, updateMultipleResponse } = useContext(FORM_ANSWER_CONTEXT);
 
-    //loop through our questions & get values based on the element name
-    const formTargets = e.target;
-    const data = [];
-    formContent.map((content) => {
-      const element = camelize(content.label);
-      if (content.question_type === "checkbox") {
-        const checkboxes = formTargets[element];
-        const selectedOptions = Array.from(checkboxes)
-          .filter((checkbox) => checkbox.checked)
-          .map((checkbox) => checkbox.value);
-        data.push({
-          question: content.label,
-          answer: selectedOptions,
-        });
-      } else {
-        data.push({
-          question: content.label,
-          answer: formTargets[element].value,
-        });
-      }
-    });
+  if (question.type === QuestionType.Checkbox) {
+    return (
+      !question.options ? null : (question.options.map(option => (
+        <Checkbox
+          key={option.id}
+          onChange={({ target }) => updateMultipleResponse(question.id, option.value, target.checked)}
+          name={question.id}
+          label={option.value}
+        />
+      )))
+    )
+  }
 
-    console.log("form data", data);
-  };
+  if (question.type === QuestionType.Radio) {
+    return (
+      !question.options ? null : (question.options.map(option => (
+        <Radio
+          required={question.isRequired}
+          key={option.id}
+          onChange={() => updateAnswer(question.id, option.value)}
+          name={question.id}
+          label={option.value}
+        />
+      )))
+    )
+  }
+
+  if (question.type === QuestionType.Paragraph) {
+    return <Textarea
+      variant="outlined"
+      label="Your answer"
+      required={question.isRequired}
+      onChange={({ target }) => updateAnswer(question.id, target.value)}
+    />
+  }
+
+  return <Input
+    type="text"
+    label="Your answer"
+    required={question.isRequired}
+    onChange={({ target }) => updateAnswer(question.id, target.value)}
+  />;
+}
+
+function AnswerItem({ question }) {
+  return (
+    <div className="form-block flex flex-col items-start gap-2">
+      <Typography className="text-[14px] text-bgray font-semibold">
+        {question.isRequired && <span className="text-red-300 mr-2">/!\</span>}
+        {question.title}
+      </Typography>
+      {(question.description && question.description.length > 0) && (
+        <Typography className="text-[14px] text-bgray">
+          {question.description}
+        </Typography>
+      )}
+      <AnswerInput question={question} />
+    </div>
+  )
+}
+
+
+export function ReplyFormBody({ questions }) {
+  const [answerValue, setAnswerValue] = useState(questions.map(question => ({
+    id: uuid(),
+    value: "",
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+    questionId: question.id
+  })));
+
+  const submitAnswer = (event) => {
+    event.preventDefault();
+    console.log("answer", answerValue);
+  }
+
+  const updateAnswer = (id, value) => {
+    setAnswerValue(prev => {
+      return [...prev].map(answer => answer.questionId === id ? ({ ...answer, value }) : answer);
+    })
+  }
+
+  const updateMultipleResponse = (id, value, state) => {
+    setAnswerValue(prev => {
+      return [...prev].map(answer => {
+        if (answer.questionId !== id)
+          return answer;
+        const responses = answer.value.split("---");
+
+        if (state) {
+          return { ...answer, value: [...responses, value].filter(el => el.length > 0).join("---") };
+        }
+
+        return { ...answer, value: responses.filter(response => response !== value).join("---") };
+      })
+    })
+  }
 
   return (
-    <form onSubmit={submitForm} className="reply-block">
-      {formContent.map((field) => (
-        <div key={field.id} className="reply-field">
-          <div className="reply-field-item">
-            <div key={field.name} className="reply-text text-black-700">
-              <label>{field.label}</label>
-            </div>
-          </div>
-
-          <div className="my-4">
-            {field.question_type === "short_answer" && (
-              <input
-                type="text"
-                className="reply-input"
-                placeholder={field.label}
-                name={camelize(field.label)}
-              />
-            )}
-            {field.question_type === "paragraph" && (
-              <input
-                className="reply-input"
-                placeholder={field.label}
-                name={camelize(field.label)}
-              />
-            )}
-
-            {field.question_type === "checkbox" && (
-              <>
-                {field.list.map((option) => (
-                  <div key={option}>
-                    <input
-                      type="checkbox"
-                      id={camelize(option)}
-                      name={camelize(field.label)}
-                      value={option}
-                    />
-                    <label className="px-5" htmlFor={camelize(option)}>
-                      {option}
-                    </label>
-                  </div>
-                ))}
-              </>
-            )}
-            {field.question_type === "radio" && (
-              <>
-                {field.list.map((option) => (
-                  <div key={option}>
-                    <input
-                      type="radio"
-                      id={camelize(option)}
-                      name={camelize(field.label)}
-                      value={option}
-                    />
-                    <label className="px-5" htmlFor={camelize(option)}>
-                      {option}
-                    </label>
-                  </div>
-                ))}
-              </>
-            )}
-          </div>
-        </div>
-      ))}
-
-      <div className="flex mt-5 w-full gap-3 justify-end items-center">
-        <Button size="sm" type="submit">
-          Submit
-        </Button>
-      </div>
-    </form>
+    <div className="my-5 w-full">
+      <FORM_ANSWER_CONTEXT.Provider value={{ updateAnswer, updateMultipleResponse }}>
+        <form className="w-full" onSubmit={submitAnswer}>
+          {questions.map(question => <AnswerItem key={question.id} question={question} />)}
+          <Button size="sm" className="ml-auto block mt-5" type="submit">
+            Submit
+          </Button>
+        </form>
+      </FORM_ANSWER_CONTEXT.Provider>
+    </div>
   );
 }

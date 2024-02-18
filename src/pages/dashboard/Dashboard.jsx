@@ -1,11 +1,13 @@
 import { Route, Routes } from "react-router-dom";
+import { Spinner } from "@material-tailwind/react";
 
-import { FormList, FormEdit } from "../../operations/forms";
+import { FormList, FormEdit, FormReply } from "../../operations/forms";
 import { ProfileShow } from "../../operations/profile";
+
 import { NotFoundPage } from "../NotFoundPage";
+
 import { Layout } from "../../ui";
 import { useDashboardState } from "../../stores";
-import { Spinner } from "@material-tailwind/react";
 
 export function Dashboard() {
   const isLoading = useDashboardState((state) => state.isLoading);
@@ -22,6 +24,7 @@ export function Dashboard() {
       )}
       <Routes>
         <Route path="forms/:formId/edit" element={<FormEdit />} />
+        <Route path="forms/:formId/reply" element={<FormReply />} />
         <Route path="/profile" element={<ProfileShow />} />
         <Route path="/" element={<FormList />} />
         <Route path="/*" element={<NotFoundPage />} />
