@@ -38,4 +38,24 @@
   .form-input {
     @apply placeholder:text-gray-500;
   }
+
+  .reply-input {
+    @apply shadow-sm h-10 rounded-md block w-full;
+  }
+
+  .reply-block {
+    @apply flex flex-col justify-start items-center h-screen space-y-2 mx-auto;
+  }
+
+  .reply-field {
+    @apply rounded-md bg-white flex flex-col px-4 w-full shadow-md py-2;
+  }
+
+  .reply-field-item {
+    @apply flex justify-between items-center space-y-1 py-4;
+  }
+
+  .reply-text {
+    @apply block text-sm font-medium  capitalize;
+  }
 }
