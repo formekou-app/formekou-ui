@@ -28,10 +28,7 @@ export function FormEdit() {
           setAll(newStore);
         })
         .catch(() => {
-          notify("Oops, form not found or something went wrong", {
-            color: "red",
-          });
-          navigate("/dashboard");
+          navigate("/dashboard/error/multiple");
         })
         .finally(() => dumbLoading(() => setIsLoading(false)));
     };

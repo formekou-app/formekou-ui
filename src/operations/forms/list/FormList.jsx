@@ -11,12 +11,12 @@ import { FormCreateModal } from "../create/FormCreateModal";
 import { List } from "./components";
 
 /*eslint-disable*/
-const SortType = {
+export const SortType = {
   updatedAt: "updatedAt",
   createdAt: "createdAt",
 };
 
-function SelectSortType({ setSortType, value }) {
+export function SelectSortType({ setSortType, value }) {
   return (
     <select
       value={value}
@@ -33,7 +33,7 @@ function SelectSortType({ setSortType, value }) {
   );
 }
 
-function ListViewButton({ isActive, icon, onClick, label }) {
+export function ListViewButton({ isActive, icon, onClick, label }) {
   return (
     <button
       size="sm"

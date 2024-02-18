@@ -92,7 +92,7 @@ export const Question = React.memo(({ questionIndex }) => {
       )}
       <div className="flex gap-10 items-start w-full">
         <Switch
-          value={question.isRequired}
+          checked={question.isRequired}
           onChange={({ target }) =>
             updateQuestion(question.id, "isRequired", target.checked)
           }

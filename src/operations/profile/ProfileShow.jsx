@@ -1,18 +1,15 @@
-import { Button } from "@material-tailwind/react";
+import { ProfileLayout } from "./ProfilLayout";
 import { useAuth } from "../../security/hooks/useAuth";
+import { Typography } from "@material-tailwind/react";
 
 export function ProfileShow() {
   const authentification = useAuth();
   return (
-    <div className="w-full">
-      <div>logged as {JSON.stringify(authentification.user)}</div>
-      <Button
-        className="m-5"
-        size="sm"
-        onClick={() => authentification.signOut()}
-      >
-        Logout
-      </Button>
+    <div className="form-block w-full">
+      <Typography className="font-semibold text-bgray ml-5">
+        My profile
+      </Typography>
+      <ProfileLayout isOwnProfile={true} user={authentification.user} />
     </div>
   );
 }

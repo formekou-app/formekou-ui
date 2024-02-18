@@ -17,13 +17,11 @@ import Proptypes from "prop-types";
 
 export const LIST_CONTEXT = createContext();
 
-function EmptyList() {
+export function EmptyList({ label }) {
   return (
     <div className="w-ful h-[350px] min-h-[450px] flex items-center gap-5 justify-center flex-col">
       <img src={emptyList} className="w-[300px]" />
-      <Typography className="text-[35px] text-bgray">
-        {"You don't have a form yet"}
-      </Typography>
+      <Typography className="text-[35px] text-bgray">{label}</Typography>
       <FormCreateModal />
     </div>
   );
@@ -54,7 +52,7 @@ export function List({ isGridView, sortType }) {
       <Spinner />
     </div>
   ) : forms.length === 0 ? (
-    <EmptyList />
+    <EmptyList label={"You don't have a form yet"} />
   ) : (
     <LIST_CONTEXT.Provider value={{ fetchForms, setIsLoading }}>
       {!isGridView ? <ListView forms={forms} /> : <GridView forms={forms} />}

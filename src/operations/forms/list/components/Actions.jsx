@@ -22,6 +22,12 @@ export function Actions({ formId }) {
   const { setIsLoading, fetchForms } = useContext(LIST_CONTEXT);
   const notify = useNotify();
 
+  const copyLink = () => {
+    const url = `${window.location.origin}/dashboard/forms/${formId}/reply`;
+    navigator.clipboard.writeText(url);
+    notify("Link copied", { color: "green" });
+  };
+
   const doDelete = async () => {
     setIsLoading(true);
     formsProvider
@@ -50,7 +56,23 @@ export function Actions({ formId }) {
         <Button
           size="sm"
           variant="text"
-          className="py-2 w-full block"
+          className="py-3 w-full block"
+          onClick={() => navigate(`/dashboard/forms/${formId}/answers`)}
+        >
+          All responses
+        </Button>
+        <Button
+          size="sm"
+          variant="text"
+          className="py-3 w-full block"
+          onClick={copyLink}
+        >
+          CopyLink
+        </Button>
+        <Button
+          size="sm"
+          variant="text"
+          className="py-3 w-full block"
           onClick={() => navigate(`/dashboard/forms/${formId}/edit`)}
         >
           Edit
@@ -59,7 +81,7 @@ export function Actions({ formId }) {
           size="sm"
           color="red"
           variant="text"
-          className="block w-full py-2"
+          className="block w-full py-3"
           onClick={doDelete}
         >
           Delete
