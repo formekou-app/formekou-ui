@@ -49,13 +49,24 @@ export function CreateFormHeader() {
       />
       <NumberOfQuestion />
       <CollapseConfig title="More configuration">
-        <Switch
-          label="Private"
-          name="isPrivate"
-          className="text-bgray text-[14px]"
-          checked={config.isPrivate}
-          onChange={({ target }) => updateConfig("isPrivate", target.checked)}
-        />
+        <div className="flex items-center gap-5">
+          <Switch
+            label="Multiple response"
+            name="allowMultipleChoice"
+            className="text-bgray text-[14px]"
+            checked={config.allowMultipleChoice}
+            onChange={({ target }) =>
+              updateConfig("allowMultipleChoice", target.checked)
+            }
+          />
+          <Switch
+            label="Private"
+            name="isPrivate"
+            className="text-bgray text-[14px]"
+            checked={config.isPrivate}
+            onChange={({ target }) => updateConfig("isPrivate", target.checked)}
+          />
+        </div>
         <Input
           type="color"
           name="color"

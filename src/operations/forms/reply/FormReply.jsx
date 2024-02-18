@@ -6,6 +6,7 @@ import { useDashboardState } from "../../../stores";
 import { formsProvider } from "../../../providers";
 import { dumbLoading } from "../../utils";
 
+/*eslint-disable*/
 export function FormReply() {
   const [form, setForms] = useState(null);
   const { formId } = useParams();
@@ -15,11 +16,12 @@ export function FormReply() {
 
   useEffect(() => {
     setIsLoading(true);
+
     const getFormById = async () => {
       formsProvider
         .getFormById(formId)
         .then((formResponse) => {
-          setForms(formResponse)
+          setForms(formResponse);
         })
         .catch(() => {
           notify("Oops, form not found or something went wrong", {
@@ -29,7 +31,25 @@ export function FormReply() {
         })
         .finally(() => dumbLoading(() => setIsLoading(false)));
     };
-    getFormById();
+
+    const testIfCanReply = async () => {
+      formsProvider
+        .canIReply(formId)
+        .then((data) => {
+          if (!data) {
+            navigate("/dashboard/error/multiple");
+            dumbLoading(() => setIsLoading(false));
+          } else {
+            getFormById();
+          }
+        })
+        .catch(async () => {
+          navigate("/dashboard/error/multiple");
+          dumbLoading(() => setIsLoading(false));
+        });
+    };
+
+    testIfCanReply();
   }, [formId]);
 
   if (isLoading || form === null) return null;
@@ -37,7 +57,7 @@ export function FormReply() {
   return (
     <div className="w-full mx-auto max-w-[900px]">
       <ReplyFormHeader form={form} />
-      <ReplyFormBody questions={form.questions || []} />
+      <ReplyFormBody questions={form.questions || []} formId={form.id} />
     </div>
   );
 }

@@ -22,6 +22,12 @@ export function Actions({ formId }) {
   const { setIsLoading, fetchForms } = useContext(LIST_CONTEXT);
   const notify = useNotify();
 
+  const copyLink = () => {
+    const url = `${window.location.origin}/dashboard/forms/${formId}/reply`;
+    navigator.clipboard.writeText(url);
+    notify("Link copied", { color: "green" });
+  };
+
   const doDelete = async () => {
     setIsLoading(true);
     formsProvider
@@ -47,6 +53,14 @@ export function Actions({ formId }) {
         </IconButton>
       </PopoverHandler>
       <PopoverContent className="p-0 w-[150px]">
+        <Button
+          size="sm"
+          variant="text"
+          className="py-2 w-full block"
+          onClick={copyLink}
+        >
+          CopyLink
+        </Button>
         <Button
           size="sm"
           variant="text"
