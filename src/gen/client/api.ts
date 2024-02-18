@@ -42,6 +42,144 @@ import {
 /**
  *
  * @export
+ * @interface Answer
+ */
+export interface Answer {
+  /**
+   *
+   * @type {number}
+   * @memberof Answer
+   */
+  points?: number;
+  /**
+   *
+   * @type {AnswerStatus}
+   * @memberof Answer
+   */
+  status?: AnswerStatus;
+  /**
+   *
+   * @type {User}
+   * @memberof Answer
+   */
+  user?: User;
+  /**
+   *
+   * @type {Question}
+   * @memberof Answer
+   */
+  question?: Question;
+  /**
+   *
+   * @type {string}
+   * @memberof Answer
+   */
+  id?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof Answer
+   */
+  value?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof Answer
+   */
+  createdAt?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof Answer
+   */
+  updatedAt?: string;
+}
+
+/**
+ *
+ * @export
+ * @enum {string}
+ */
+
+export const AnswerStatus = {
+  Unknown: "UNKNOWN",
+  Correct: "CORRECT",
+  Wrong: "WRONG",
+} as const;
+
+export type AnswerStatus = (typeof AnswerStatus)[keyof typeof AnswerStatus];
+
+/**
+ *
+ * @export
+ * @interface BaseAnswer
+ */
+export interface BaseAnswer {
+  /**
+   *
+   * @type {string}
+   * @memberof BaseAnswer
+   */
+  id?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BaseAnswer
+   */
+  value?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BaseAnswer
+   */
+  createdAt?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof BaseAnswer
+   */
+  updatedAt?: string;
+}
+/**
+ *
+ * @export
+ * @interface CreateAnswer
+ */
+export interface CreateAnswer {
+  /**
+   *
+   * @type {string}
+   * @memberof CreateAnswer
+   */
+  questionId?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof CreateAnswer
+   */
+  id?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof CreateAnswer
+   */
+  value?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof CreateAnswer
+   */
+  createdAt?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof CreateAnswer
+   */
+  updatedAt?: string;
+}
+/**
+ *
+ * @export
  * @interface CreateForm
  */
 export interface CreateForm {
@@ -342,6 +480,56 @@ export const FormsApiAxiosParamCreator = function (
 ) {
   return {
     /**
+     * Will tell you if you can replay a specific form
+     * @summary Can i Reply to a form
+     * @param {string} formId Id the form
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    canIReply: async (
+      formId: string,
+      options: RawAxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'formId' is not null or undefined
+      assertParamExists("canIReply", "formId", formId);
+      const localVarPath = `/forms/{formId}/can/reply`.replace(
+        `{${"formId"}}`,
+        encodeURIComponent(String(formId))
+      );
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = {
+        method: "GET",
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      // authentication BearerAuth required
+      // http bearer authentication required
+      await setBearerAuthToObject(localVarHeaderParameter, configuration);
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
      *
      * @summary Create or Update forms
      * @param {CreateForm} [createForm]
@@ -503,6 +691,62 @@ export const FormsApiAxiosParamCreator = function (
       };
     },
     /**
+     * Get all answer for specific form if have access
+     * @summary Get all answer for specific form if have access
+     * @param {string} formId Id the form
+     * @param {string} [sort]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getFormAnswers: async (
+      formId: string,
+      sort?: string,
+      options: RawAxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'formId' is not null or undefined
+      assertParamExists("getFormAnswers", "formId", formId);
+      const localVarPath = `/forms/{formId}/answers`.replace(
+        `{${"formId"}}`,
+        encodeURIComponent(String(formId))
+      );
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = {
+        method: "GET",
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      // authentication BearerAuth required
+      // http bearer authentication required
+      await setBearerAuthToObject(localVarHeaderParameter, configuration);
+
+      if (sort !== undefined) {
+        localVarQueryParameter["sort"] = sort;
+      }
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
      *
      * @summary Get one form using id
      * @param {string} formId Id the form
@@ -610,6 +854,58 @@ export const FormsApiAxiosParamCreator = function (
         options: localVarRequestOptions,
       };
     },
+    /**
+     * Reply a form
+     * @summary reply a form
+     * @param {CreateAnswer} [createAnswer]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    saveAnswers: async (
+      createAnswer?: CreateAnswer,
+      options: RawAxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      const localVarPath = `/forms/reply`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = {
+        method: "PUT",
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      // authentication BearerAuth required
+      // http bearer authentication required
+      await setBearerAuthToObject(localVarHeaderParameter, configuration);
+
+      localVarHeaderParameter["Content-Type"] = "application/json";
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+      localVarRequestOptions.data = serializeDataIfNeeded(
+        createAnswer,
+        localVarRequestOptions,
+        configuration
+      );
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
   };
 };
 
@@ -620,6 +916,35 @@ export const FormsApiAxiosParamCreator = function (
 export const FormsApiFp = function (configuration?: Configuration) {
   const localVarAxiosParamCreator = FormsApiAxiosParamCreator(configuration);
   return {
+    /**
+     * Will tell you if you can replay a specific form
+     * @summary Can i Reply to a form
+     * @param {string} formId Id the form
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async canIReply(
+      formId: string,
+      options?: RawAxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<boolean>
+    > {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.canIReply(
+        formId,
+        options
+      );
+      const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+      const localVarOperationServerBasePath =
+        operationServerMap["FormsApi.canIReply"]?.[localVarOperationServerIndex]
+          ?.url;
+      return (axios, basePath) =>
+        createRequestFunction(
+          localVarAxiosArgs,
+          globalAxios,
+          BASE_PATH,
+          configuration
+        )(axios, localVarOperationServerBasePath || basePath);
+    },
     /**
      *
      * @summary Create or Update forms
@@ -715,6 +1040,39 @@ export const FormsApiFp = function (configuration?: Configuration) {
         )(axios, localVarOperationServerBasePath || basePath);
     },
     /**
+     * Get all answer for specific form if have access
+     * @summary Get all answer for specific form if have access
+     * @param {string} formId Id the form
+     * @param {string} [sort]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async getFormAnswers(
+      formId: string,
+      sort?: string,
+      options?: RawAxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Answer>>
+    > {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.getFormAnswers(
+        formId,
+        sort,
+        options
+      );
+      const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+      const localVarOperationServerBasePath =
+        operationServerMap["FormsApi.getFormAnswers"]?.[
+          localVarOperationServerIndex
+        ]?.url;
+      return (axios, basePath) =>
+        createRequestFunction(
+          localVarAxiosArgs,
+          globalAxios,
+          BASE_PATH,
+          configuration
+        )(axios, localVarOperationServerBasePath || basePath);
+    },
+    /**
      *
      * @summary Get one form using id
      * @param {string} formId Id the form
@@ -777,6 +1135,36 @@ export const FormsApiFp = function (configuration?: Configuration) {
           configuration
         )(axios, localVarOperationServerBasePath || basePath);
     },
+    /**
+     * Reply a form
+     * @summary reply a form
+     * @param {CreateAnswer} [createAnswer]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async saveAnswers(
+      createAnswer?: CreateAnswer,
+      options?: RawAxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<Answer>
+    > {
+      const localVarAxiosArgs = await localVarAxiosParamCreator.saveAnswers(
+        createAnswer,
+        options
+      );
+      const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+      const localVarOperationServerBasePath =
+        operationServerMap["FormsApi.saveAnswers"]?.[
+          localVarOperationServerIndex
+        ]?.url;
+      return (axios, basePath) =>
+        createRequestFunction(
+          localVarAxiosArgs,
+          globalAxios,
+          BASE_PATH,
+          configuration
+        )(axios, localVarOperationServerBasePath || basePath);
+    },
   };
 };
 
@@ -791,6 +1179,18 @@ export const FormsApiFactory = function (
 ) {
   const localVarFp = FormsApiFp(configuration);
   return {
+    /**
+     * Will tell you if you can replay a specific form
+     * @summary Can i Reply to a form
+     * @param {string} formId Id the form
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    canIReply(formId: string, options?: any): AxiosPromise<boolean> {
+      return localVarFp
+        .canIReply(formId, options)
+        .then((request) => request(axios, basePath));
+    },
     /**
      *
      * @summary Create or Update forms
@@ -833,6 +1233,23 @@ export const FormsApiFactory = function (
         .then((request) => request(axios, basePath));
     },
     /**
+     * Get all answer for specific form if have access
+     * @summary Get all answer for specific form if have access
+     * @param {string} formId Id the form
+     * @param {string} [sort]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getFormAnswers(
+      formId: string,
+      sort?: string,
+      options?: any
+    ): AxiosPromise<Array<Answer>> {
+      return localVarFp
+        .getFormAnswers(formId, sort, options)
+        .then((request) => request(axios, basePath));
+    },
+    /**
      *
      * @summary Get one form using id
      * @param {string} formId Id the form
@@ -857,6 +1274,21 @@ export const FormsApiFactory = function (
         .getOwnForms(sort, form, options)
         .then((request) => request(axios, basePath));
     },
+    /**
+     * Reply a form
+     * @summary reply a form
+     * @param {CreateAnswer} [createAnswer]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    saveAnswers(
+      createAnswer?: CreateAnswer,
+      options?: any
+    ): AxiosPromise<Answer> {
+      return localVarFp
+        .saveAnswers(createAnswer, options)
+        .then((request) => request(axios, basePath));
+    },
   };
 };
 
@@ -867,6 +1299,20 @@ export const FormsApiFactory = function (
  * @extends {BaseAPI}
  */
 export class FormsApi extends BaseAPI {
+  /**
+   * Will tell you if you can replay a specific form
+   * @summary Can i Reply to a form
+   * @param {string} formId Id the form
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof FormsApi
+   */
+  public canIReply(formId: string, options?: RawAxiosRequestConfig) {
+    return FormsApiFp(this.configuration)
+      .canIReply(formId, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
   /**
    *
    * @summary Create or Update forms
@@ -918,6 +1364,25 @@ export class FormsApi extends BaseAPI {
   }
 
   /**
+   * Get all answer for specific form if have access
+   * @summary Get all answer for specific form if have access
+   * @param {string} formId Id the form
+   * @param {string} [sort]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof FormsApi
+   */
+  public getFormAnswers(
+    formId: string,
+    sort?: string,
+    options?: RawAxiosRequestConfig
+  ) {
+    return FormsApiFp(this.configuration)
+      .getFormAnswers(formId, sort, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
    *
    * @summary Get one form using id
    * @param {string} formId Id the form
@@ -947,6 +1412,23 @@ export class FormsApi extends BaseAPI {
   ) {
     return FormsApiFp(this.configuration)
       .getOwnForms(sort, form, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   * Reply a form
+   * @summary reply a form
+   * @param {CreateAnswer} [createAnswer]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof FormsApi
+   */
+  public saveAnswers(
+    createAnswer?: CreateAnswer,
+    options?: RawAxiosRequestConfig
+  ) {
+    return FormsApiFp(this.configuration)
+      .saveAnswers(createAnswer, options)
       .then((request) => request(this.axios, this.basePath));
   }
 }
